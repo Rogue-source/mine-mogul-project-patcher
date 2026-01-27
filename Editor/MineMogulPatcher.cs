@@ -1,37 +1,51 @@
 using UnityEditor;
+using UnityEngine;
 using NomNom.ProjectPatcher;
-using NomNom.ProjectPatcher.BepInEx;
 using System.IO;
 
 namespace MineMogul.Patcher {
-    public class MineMogulPatcher : ProjectPatcherWindow {
+    public class MineMogulPatcher : EditorWindow {
+        private string _gamePath = @"C:\SteamLibrary\steamapps\common\MineMogul";
+
         [MenuItem("Tools/Mine Mogul/Project Patcher")]
-        public static void Open() {
+        public static void ShowWindow() {
             GetWindow<MineMogulPatcher>("Mine Mogul Patcher");
         }
 
-        protected override void OnEnable() {
-            base.OnEnable();
-            var settings = UPPatcherUserSettings.Instance; 
+        private void OnGUI() {
+            GUILayout.Label("Mine Mogul Project Patcher", EditorStyles.boldLabel);
             
-            if (settings != null && !string.IsNullOrEmpty(settings.GameFolder)) {
-                this.SetPath(settings.GameFolder);
-            } 
-            else {
-                string myDefault = @"C:\SteamLibrary\steamapps\common\MineMogul";
-                if (Directory.Exists(myDefault)) {
-                    this.SetPath(myDefault);
-                }
+            EditorGUILayout.BeginHorizontal();
+            _gamePath = EditorGUILayout.TextField("Game Directory:", _gamePath);
+            if (GUILayout.Button("...", GUILayout.Width(30))) {
+                _gamePath = EditorUtility.OpenFolderPanel("Select Mine Mogul Folder", _gamePath, "");
+            }
+            EditorGUILayout.EndHorizontal();
+
+            GUILayout.Space(20);
+
+            if (GUILayout.Button("Run Patcher", GUILayout.Height(40))) {
+                RunPatcherLogic();
             }
         }
 
-        protected override string GetDefaultExecutableName() => "Mine Mogul.exe";
-        protected override string GetDefaultProjectName() => "MineMogul_Ripped";
+        private void RunPatcherLogic() {
+            if (!Directory.Exists(_gamePath)) {
+                EditorUtility.DisplayDialog("Error", "Selected directory does not exist!", "OK");
+                return;
+            }
 
-        private void SetPath(string path) {
-            var pathField = typeof(ProjectPatcherWindow).GetField("_path", 
-                System.Reflection.BindingFlags.NonPublic | System.Reflection.BindingFlags.Instance);
-            if (pathField != null) pathField.SetValue(this, path);
+            // This sets the settings for the core NomNom patcher manually
+            var settings = UPPatcherUserSettings.Instance;
+            settings.GameFolder = _gamePath;
+            settings.ProjectName = "MineMogul_Ripped";
+            
+            EditorUtility.SetDirty(settings);
+            AssetDatabase.SaveAssets();
+
+            Debug.Log("Path assigned. You can now use the 'Unity Project Patcher' window to click Patch.");
+            // Open the core window for them to finish the job
+            EditorApplication.ExecuteMenuItem("Tools/Project Patcher");
         }
     }
 }

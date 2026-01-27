@@ -1,15 +1,10 @@
 {
     "name": "MineMogulPatcher.Editor",
-    "rootNamespace": "",
     "references": [
-        "NomNom.ProjectPatcher.Editor",
-        "NomNom.ProjectPatcher.BepInEx.Editor"
+        "NomNom.ProjectPatcher",
+        "NomNom.ProjectPatcher.BepInEx"
     ],
     "includePlatforms": [
         "Editor"
-    ],
-    "allowUnsafeCode": false,
-    "overrideReferences": false,
-    "precompiledReferences": [],
-    "autoReferenced": true
+    ]
 }
