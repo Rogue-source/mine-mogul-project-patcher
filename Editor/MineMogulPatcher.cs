@@ -1,6 +1,6 @@
 using UnityEditor;
 using UnityEngine;
-using Nomnom.UnityProjectPatcher.Editor;
+using NomNom.ProjectPatcher;
 
 namespace MineMogul.Patcher
 {
