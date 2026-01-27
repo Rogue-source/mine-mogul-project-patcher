@@ -1,10 +1,11 @@
 {
   "name": "com.rogue.minemogul-patcher",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "displayName": "Mine Mogul Project Patcher",
-  "description": "Custom patcher for Mine Mogul",
+  "description": "Project patcher wrapper for Mine Mogul",
   "unity": "2022.3",
-  "author": {
-    "name": "Rogue"
+  "dependencies": {
+    "com.nomnom.unity-project-patcher": "https://github.com/nomnomab/unity-project-patcher.git",
+    "com.nomnom.unity-project-patcher-bepinex": "https://github.com/nomnomab/unity-project-patcher-bepinex.git"
   }
 }
