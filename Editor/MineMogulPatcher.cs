@@ -1,6 +1,7 @@
 using UnityEditor;
 using UnityEngine;
-using NomNom.ProjectPatcher;
+using Nomnom.UnityProjectPatcher; // For PatcherSteps
+using Nomnom.UnityProjectPatcher.Editor; // For [UPPatcher]
 
 namespace MineMogul.Patcher
 {
