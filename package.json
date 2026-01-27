@@ -1,0 +1,10 @@
+{
+  "name": "com.Rogue.minemogul-patcher",
+  "version": "1.0.0",
+  "displayName": "Mine Mogul Project Patcher",
+  "description": "Custom patcher for Mine Mogul",
+  "unity": "2022.3.62",
+  "author": {
+    "name": "Rogue"
+  }
+}
