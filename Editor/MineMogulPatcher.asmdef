@@ -2,8 +2,8 @@
     "name": "MineMogulPatcher.Editor",
     "rootNamespace": "",
     "references": [
-        "NomNom.ProjectPatcher.Editor",
-        "NomNom.ProjectPatcher.BepInEx.Editor"
+        "com.nomnom.unity-project-patcher.Editor",
+        "Nomnom.UnityProjectPatcher.Editor"
     ],
     "includePlatforms": [
         "Editor"
