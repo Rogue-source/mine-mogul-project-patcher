@@ -2,18 +2,14 @@
     "name": "MineMogulPatcher.Editor",
     "rootNamespace": "",
     "references": [
-        "com.nomnom.unity-project-patcher.Editor",
-        "com.nomnom.unity-project-patcher-bepinex.Editor"
+        "NomNom.ProjectPatcher.Editor",
+        "NomNom.ProjectPatcher.BepInEx.Editor"
     ],
     "includePlatforms": [
         "Editor"
     ],
-    "excludePlatforms": [],
     "allowUnsafeCode": false,
     "overrideReferences": false,
     "precompiledReferences": [],
-    "autoReferenced": true,
-    "defineConstraints": [],
-    "versionDefines": [],
-    "noEngineReferences": false
+    "autoReferenced": true
 }
