@@ -1,15 +1,9 @@
 {
     "name": "MineMogulPatcher.Editor",
-    "rootNamespace": "",
     "references": [
-        "com.nomnom.unity-project-patcher.Editor",
         "Nomnom.UnityProjectPatcher.Editor"
     ],
     "includePlatforms": [
         "Editor"
-    ],
-    "allowUnsafeCode": false,
-    "overrideReferences": false,
-    "precompiledReferences": [],
-    "autoReferenced": true
+    ]
 }
