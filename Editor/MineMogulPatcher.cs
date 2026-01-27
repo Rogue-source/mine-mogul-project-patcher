@@ -1,11 +1,11 @@
-using System.IO;
 using UnityEditor;
 using UnityEngine;
+using Nomnom.UnityProjectPatcher.Editor;
 
 namespace MineMogul.Patcher
 {
-    [Nomnom.UnityProjectPatcher.Editor.UPPatcherAttribute("Mine Mogul")]
-    public class MineMogulPatcher : Nomnom.UnityProjectPatcher.Editor.PatcherSteps
+    [UPPatcher("Mine Mogul")]
+    public class MineMogulPatcher : PatcherSteps
     {
         public override string DefaultProjectName => "MineMogul_Ripped";
         public override string GameExecutableName => "Mine Mogul.exe";
