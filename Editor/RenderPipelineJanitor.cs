@@ -1,5 +1,6 @@
 using UnityEditor;
 using UnityEngine.Rendering;
+using UnityEngine;
 
 [InitializeOnLoad]
 public static class RenderPipelineJanitor
