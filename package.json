@@ -1,11 +1,16 @@
 {
-  "name": "com.rogue.minemogul-patcher",
-  "version": "1.0.1",
+  "name": "com.rogue.unity-minemogul-project-patcher",
+  "version": "1.0.0",
   "displayName": "Mine Mogul Project Patcher",
-  "description": "Project patcher wrapper for Mine Mogul",
-  "unity": "2022.3",
-  "dependencies": {
-    "com.nomnom.unity-project-patcher": "https://github.com/nomnomab/unity-project-patcher.git",
-    "com.nomnom.unity-project-patcher-bepinex": "https://github.com/nomnomab/unity-project-patcher-bepinex.git"
-  }
+  "description": "A game wrapper that generates a Unity project from Mine Mogul's build that can be playable in-editor",
+  "unity": "6000.2",
+  "unityRelease": "9f1",
+  "licensesUrl": "https://choosealicense.com/licenses/gpl-3.0/",
+  "dependencies": {},
+  "devDependencies": {},
+  "samples": [],
+  "author": {
+    "name": "Rogue"
+  },
+  "type": "library"
 }

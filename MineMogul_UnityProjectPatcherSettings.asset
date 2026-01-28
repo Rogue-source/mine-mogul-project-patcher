@@ -1,0 +1,160 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8f29d200711b44929311442db80f4c89, type: 3}
+  m_Name: MineMogul_UnityProjectPatcherSettings
+  m_EditorClassIdentifier: 
+  _gameName: MineMogul
+  _customGameName: 
+  _gameVersion: 6000.2.9.14730471
+  _pipelineType: 0
+  _dllsToCopy:
+  - key: 
+    sourceName: Facepunch.Steamworks.Win64.dll
+    outputPath: 
+    exclude: 0
+  - key: 
+    sourceName: FbxBuildTestAssets.dll
+    outputPath: 
+    exclude: 0
+  - key: 
+    sourceName: Klattersynth.dll
+    outputPath: 
+    exclude: 0
+  - key: 
+    sourceName: Newtonsoft.Json.dll
+    outputPath: 
+    exclude: 0
+  - key: 
+    sourceName: SingularityGroup.HotReload.Runtime.dll
+    outputPath: 
+    exclude: 0
+  - key: 
+    sourceName: SingularityGroup.HotReload.Runtime.Public.dll
+    outputPath: 
+    exclude: 0
+  - key: 
+    sourceName: Sirenix.OdinInspector.Attributes.dll
+    outputPath: 
+    exclude: 0
+  - key: 
+    sourceName: Sirenix.Serialization.Config.dll
+    outputPath: 
+    exclude: 0
+  - key: 
+    sourceName: Sirenix.Serialization.dll
+    outputPath: 
+    exclude: 0
+  - key: 
+    sourceName: Sirenix.Utilities.dll
+    outputPath: 
+    exclude: 0
+  - key: 
+    sourceName: websocket-sharp.dll
+    outputPath: 
+    exclude: 0
+  - key: 
+    sourceName: ../Plugins/x86_64/AudioIn.dll
+    outputPath: 
+    exclude: 0
+  - key: 
+    sourceName: ../Plugins/x86_64/opus_egpv.dll
+    outputPath: 
+    exclude: 0
+  - key: 
+    sourceName: ../Plugins/x86_64/overtone.dll
+    outputPath: 
+    exclude: 0
+  - key: 
+    sourceName: ../Plugins/x86_64/overtoneruntime.dll
+    outputPath: 
+    exclude: 0
+  - key: 
+    sourceName: ../Plugins/x86_64/steam_api64.dll
+    outputPath: 
+    exclude: 0
+  - key: 
+    sourceName: ../Plugins/x86_64/webrtc-audio.dll
+    outputPath: 
+    exclude: 0
+  _scriptDllFoldersToCopy: []
+  _ignoredDllPrefixes:
+  - System.
+  - UnityEngine.
+  - Unity.Services.
+  _exactPackagesFound:
+  - name: com.unity.ai.navigation
+    version: 1.1.5
+    dependencies:
+    - name: com.unity.modules.ai
+      version: 1.0.0
+    matchType: 0
+  - name: com.unity.formats.fbx
+    version: 5.1.3
+    dependencies:
+    - name: com.autodesk.fbx
+      version: 5.1.1
+    - name: com.unity.timeline
+      version: 1.7.1
+    matchType: 0
+  - name: com.unity.inputsystem
+    version: 1.13.1
+    dependencies:
+    - name: com.unity.modules.uielements
+      version: 1.0.0
+    matchType: 0
+  - name: com.unity.postprocessing
+    version: 3.4.0
+    dependencies:
+    - name: com.unity.modules.physics
+      version: 1.0.0
+    matchType: 0
+  - name: com.unity.render-pipelines.core
+    version: 14.0.10
+    dependencies:
+    - name: com.unity.ugui
+      version: 1.0.0
+    - name: com.unity.modules.physics
+      version: 1.0.0
+    - name: com.unity.modules.terrain
+      version: 1.0.0
+    - name: com.unity.modules.jsonserialize
+      version: 1.0.0
+    matchType: 0
+  - name: com.unity.textmeshpro
+    version: 3.0.9
+    dependencies:
+    - name: com.unity.ugui
+      version: 1.0.0
+    matchType: 0
+  - name: com.unity.timeline
+    version: 1.8.8
+    dependencies:
+    - name: com.unity.modules.audio
+      version: 1.0.0
+    - name: com.unity.modules.director
+      version: 1.0.0
+    - name: com.unity.modules.animation
+      version: 1.0.0
+    - name: com.unity.modules.particlesystem
+      version: 1.0.0
+    matchType: 0
+  - name: com.unity.visualscripting
+    version: 1.9.5
+    dependencies:
+    - name: com.unity.ugui
+      version: 1.0.0
+    - name: com.unity.modules.jsonserialize
+      version: 1.0.0
+    matchType: 0
+  _possiblePackagesFound: []
+  _improbablePackagesFound: []
+  _gitPackages: []
