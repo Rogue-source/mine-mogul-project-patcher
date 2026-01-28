@@ -34,14 +34,6 @@ MonoBehaviour:
     outputPath: 
     exclude: 0
   - key: 
-    sourceName: DOTween.dll
-    outputPath: 
-    exclude: 0
-  - key: 
-    sourceName: DOTweenPro.dll
-    outputPath: 
-    exclude: 0
-  - key: 
     sourceName: UnityUIExtensions.dll
     outputPath: 
     exclude: 0
@@ -55,6 +47,7 @@ MonoBehaviour:
   - UnityEngine.
   - Unity.Services.
   - com.unity.render-pipelines.core
+  - com.unity.render-pipelines.universal
   _exactPackagesFound:
   - name: com.unity.ai.navigation
     version: 1.1.5
