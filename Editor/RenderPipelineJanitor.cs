@@ -10,74 +10,92 @@ public static class RenderPipelineJanitor
 {
     static RenderPipelineJanitor()
     {
+        MoveDLLsToPlugins();
+        DeleteConflictingScripts();
         CleanManifest();
         if (GraphicsSettings.defaultRenderPipeline != null)
         {
-            UnityEngine.Debug.Log("[Patcher] Detecting URP/HDRP... Automating switch to Built-in Pipeline.");
-            
             GraphicsSettings.defaultRenderPipeline = null;
-            
             string[] qualityNames = QualitySettings.names;
             for (int i = 0; i < qualityNames.Length; i++)
             {
                 QualitySettings.SetQualityLevel(i);
                 QualitySettings.renderPipeline = null;
             }
-
             AssetDatabase.SaveAssets();
-            UnityEngine.Debug.Log("[Patcher] Auto-Fix Complete: Project is now using Built-in Render Pipeline.");
+            Debug.Log("[Patcher] Switched to Built-in Pipeline.");
+        }
+    }
+
+    private static void MoveDLLsToPlugins()
+    {
+        string sourceDir = "Assets/MineMogul/Game/AuxiliaryFiles/GameAssemblies";
+        string targetDir = "Assets/Plugins/DOTween";
+
+        if (!Directory.Exists(sourceDir)) return;
+        if (!Directory.Exists(targetDir)) Directory.CreateDirectory(targetDir);
+
+        string[] targets = { "DOTween.dll", "DOTweenPro.dll" };
+        bool movedAnything = false;
+
+        foreach (var dllName in targets)
+        {
+            string oldPath = Path.Combine(sourceDir, dllName);
+            string newPath = Path.Combine(targetDir, dllName);
+
+            if (File.Exists(oldPath) && !File.Exists(newPath))
+            {
+                FileUtil.MoveFileOrDirectory(oldPath, newPath);
+                if (File.Exists(oldPath + ".meta")) 
+                    FileUtil.MoveFileOrDirectory(oldPath + ".meta", newPath + ".meta");
+                
+                movedAnything = true;
+            }
+        }
+
+        if (movedAnything)
+        {
+            Debug.Log("[Patcher] Moved DOTween DLLs to Plugins. Fixing Reference Validation...");
+            AssetDatabase.Refresh();
+            FixDLLValidation(targetDir);
+        }
+    }
+
+    private static void FixDLLValidation(string folderPath)
+    {
+        string[] metas = Directory.GetFiles(folderPath, "*.dll.meta");
+        foreach (var metaPath in metas)
+        {
+            string content = File.ReadAllText(metaPath);
+            if (content.Contains("validateReferences: 1"))
+            {
+                content = content.Replace("validateReferences: 1", "validateReferences: 0");
+                File.WriteAllText(metaPath, content);
+            }
+        }
+    }
+
+    private static void DeleteConflictingScripts()
+    {
+        string conflictingPath = "Assets/MineMogul/Game/Plugins/Assembly-CSharp-firstpass/DG/Tweening";
+        
+        if (Directory.Exists(conflictingPath))
+        {
+            Debug.Log("[Patcher] Found conflicting DOTween scripts. Deleting directory to resolve Ambiguity (CS0121)...");
+            
+            AssetDatabase.DeleteAsset(conflictingPath);
+            AssetDatabase.Refresh();
         }
     }
 
     public static void CleanManifest()
     {
         string manifestPath = Path.Combine(Directory.GetCurrentDirectory(), "Packages", "manifest.json");
-        
         if (!File.Exists(manifestPath)) return;
 
-        try
-        {
-            string[] lines = File.ReadAllLines(manifestPath);
-            List<string> updatedLines = new List<string>();
-            bool modified = false;
-			
-            string[] forbiddenPackages = {
-                "com.unity.render-pipelines.universal",
-                "com.unity.render-pipelines.core",
-                "com.unity.render-pipelines.high-definition"
-            };
-
-            for (int i = 0; i < lines.Length; i++)
-            {
-                string line = lines[i];
-                bool isForbidden = forbiddenPackages.Any(p => line.Contains(p));
-
-                if (isForbidden)
-                {
-                    modified = true;
-                    if (updatedLines.Count > 0 && i == lines.Length - 2) 
-                    {
-                        string lastLine = updatedLines[updatedLines.Count - 1];
-                        if (lastLine.TrimEnd().EndsWith(","))
-                        {
-                            updatedLines[updatedLines.Count - 1] = lastLine.TrimEnd().TrimEnd(',');
-                        }
-                    }
-                    continue; 
-                }
-                updatedLines.Add(line);
-            }
-
-            if (modified)
-            {
-                File.WriteAllLines(manifestPath, updatedLines);
-                UnityEngine.Debug.Log("[Patcher] Scrubbed URP/HDRP from manifest.json. Unity will now refresh.");
-                AssetDatabase.Refresh();
-            }
-        }
-        catch (System.Exception e)
-        {
-            UnityEngine.Debug.LogError($"[Patcher] Failed to scrub manifest: {e.Message}");
-        }
+        string[] forbidden = { "com.unity.render-pipelines.universal", "com.unity.render-pipelines.core" };
+        var lines = File.ReadAllLines(manifestPath).Where(l => !forbidden.Any(f => l.Contains(f))).ToList();
+        
+        File.WriteAllLines(manifestPath, lines);
     }
 }
