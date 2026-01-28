@@ -8,6 +8,7 @@
   "licensesUrl": "https://choosealicense.com/licenses/gpl-3.0/",
   "dependencies": {
     "com.unity.ugui": "2.0.0"
+  },
   "devDependencies": {},
   "samples": [],
   "author": {
