@@ -18,71 +18,35 @@ MonoBehaviour:
   _pipelineType: 0
   _dllsToCopy:
   - key: 
-    sourceName: Facepunch.Steamworks.Win64.dll
+    sourceName: Assembly-CSharp.dll
     outputPath: 
     exclude: 0
   - key: 
-    sourceName: FbxBuildTestAssets.dll
+    sourceName: Assembly-CSharp-firstpass.dll
     outputPath: 
     exclude: 0
   - key: 
-    sourceName: Klattersynth.dll
+    sourceName: DemiLib.dll
     outputPath: 
     exclude: 0
   - key: 
-    sourceName: Newtonsoft.Json.dll
+    sourceName: SSCC.Runtime.dll
     outputPath: 
     exclude: 0
   - key: 
-    sourceName: SingularityGroup.HotReload.Runtime.dll
+    sourceName: DOTween.dll
     outputPath: 
     exclude: 0
   - key: 
-    sourceName: SingularityGroup.HotReload.Runtime.Public.dll
+    sourceName: DOTweenPro.dll
     outputPath: 
     exclude: 0
   - key: 
-    sourceName: Sirenix.OdinInspector.Attributes.dll
+    sourceName: UnityUIExtensions.dll
     outputPath: 
     exclude: 0
   - key: 
-    sourceName: Sirenix.Serialization.Config.dll
-    outputPath: 
-    exclude: 0
-  - key: 
-    sourceName: Sirenix.Serialization.dll
-    outputPath: 
-    exclude: 0
-  - key: 
-    sourceName: Sirenix.Utilities.dll
-    outputPath: 
-    exclude: 0
-  - key: 
-    sourceName: websocket-sharp.dll
-    outputPath: 
-    exclude: 0
-  - key: 
-    sourceName: ../Plugins/x86_64/AudioIn.dll
-    outputPath: 
-    exclude: 0
-  - key: 
-    sourceName: ../Plugins/x86_64/opus_egpv.dll
-    outputPath: 
-    exclude: 0
-  - key: 
-    sourceName: ../Plugins/x86_64/overtone.dll
-    outputPath: 
-    exclude: 0
-  - key: 
-    sourceName: ../Plugins/x86_64/overtoneruntime.dll
-    outputPath: 
-    exclude: 0
-  - key: 
-    sourceName: ../Plugins/x86_64/steam_api64.dll
-    outputPath: 
-    exclude: 0
-  - key: 
-    sourceName: ../Plugins/x86_64/webrtc-audio.dll
+    sourceName: UnityUIExtensions.examples.dll
     outputPath: 
     exclude: 0
   _scriptDllFoldersToCopy: []
