@@ -14,7 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _gameName: MineMogul
   _customGameName: 
-  _gameVersion: 6000.2.9.14730471
+  _gameVersion: 2022.3.62f3
   _pipelineType: 0
   _dllsToCopy:
   - key: 
@@ -54,6 +54,7 @@ MonoBehaviour:
   - System.
   - UnityEngine.
   - Unity.Services.
+  - com.unity.render-pipelines.core
   _exactPackagesFound:
   - name: com.unity.ai.navigation
     version: 1.1.5
