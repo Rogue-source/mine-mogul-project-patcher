@@ -14,7 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _gameName: MineMogul
   _customGameName: 
-  _gameVersion: 2022.3.62f3
+  _gameVersion: 6000.2.9.14730471
   _pipelineType: 0
   _dllsToCopy:
   - key: 

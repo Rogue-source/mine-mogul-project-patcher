@@ -3,10 +3,11 @@
   "version": "1.0.0",
   "displayName": "Mine Mogul Project Patcher",
   "description": "A game wrapper that generates a Unity project from Mine Mogul's build that can be playable in-editor",
-  "unity": "2022.3",
-  "unityRelease": "62f3",
+  "unity": "6000",
+  "unityRelease": "2.0f1"
   "licensesUrl": "https://choosealicense.com/licenses/gpl-3.0/",
-  "dependencies": {},
+  "dependencies": {
+    "com.unity.ugui": "2.0.0"
   "devDependencies": {},
   "samples": [],
   "author": {
