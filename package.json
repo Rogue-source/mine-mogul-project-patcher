@@ -4,7 +4,7 @@
   "displayName": "Mine Mogul Project Patcher",
   "description": "A game wrapper that generates a Unity project from Mine Mogul's build that can be playable in-editor",
   "unity": "6000.0",
-  "unityRelease": "2.f1",
+  "unityRelease": "2f1",
   "licensesUrl": "https://choosealicense.com/licenses/gpl-3.0/",
   "dependencies": {
     "com.unity.ugui": "2.0.0"
