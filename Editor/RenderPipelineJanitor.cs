@@ -5,11 +5,12 @@ using System.IO;
 using System.Linq;
 using System.Collections.Generic;
 using UnityEditor.Compilation;
+using System;
 
 [InitializeOnLoad]
 public static class RenderPipelineJanitor
 {
-    private const string Version = "1.0.5";
+    private const string Version = "2.5.0-Final";
 
     static RenderPipelineJanitor()
     {
@@ -36,6 +37,7 @@ public static class RenderPipelineJanitor
         FixProjectSettings();
         StopTMPPopup();  
         FixTextShaders();
+        EnsureEventSystem();
 
         if (EditorApplication.isUpdating) return;
         AssetDatabase.Refresh();
@@ -44,12 +46,9 @@ public static class RenderPipelineJanitor
     private static void FixProjectSettings()
     {
         PlayerSettings.graphicsJobs = false;
-
         PlayerSettings.SetUseDefaultGraphicsAPIs(BuildTarget.StandaloneWindows64, false);
         GraphicsDeviceType[] apis = { GraphicsDeviceType.Direct3D12, GraphicsDeviceType.Direct3D11 };
         PlayerSettings.SetGraphicsAPIs(BuildTarget.StandaloneWindows64, apis);
-        
-        Debug.Log("Janitor: Forced Graphics API to D3D12. RESTART UNITY NOW.");
     }
 
     private static void StopTMPPopup()
@@ -82,7 +81,6 @@ public static class RenderPipelineJanitor
             if (Directory.Exists(path) || File.Exists(path))
             {
                 AssetDatabase.DeleteAsset(path);
-                Debug.Log($"Janitor: Removed conflict/broken asset: {path}");
             }
         }
     }
@@ -101,10 +99,14 @@ public static class RenderPipelineJanitor
             string fileName = Path.GetFileName(fullPath);
             if (targets.Contains(fileName) && !fullPath.Contains("Assets/Plugins/DOTween"))
             {
-                string destination = Path.Combine(targetDir, fileName);
-                File.Copy(fullPath, destination, true);
-                if (File.Exists(fullPath + ".meta")) 
-                    File.Copy(fullPath + ".meta", destination + ".meta", true);
+                try 
+                {
+                    string destination = Path.Combine(targetDir, fileName);
+                    File.Copy(fullPath, destination, true);
+                    if (File.Exists(fullPath + ".meta")) 
+                        File.Copy(fullPath + ".meta", destination + ".meta", true);
+                }
+                catch (IOException) { }
             }
         }
     }
@@ -122,17 +124,45 @@ public static class RenderPipelineJanitor
 
     private static void FixTextShaders()
     {
-        Shader targetSDF = Shader.Find("TextMeshPro/Mobile/Distance Field");
-        if (targetSDF == null) return;
+        Shader normalSDF = Shader.Find("TextMeshPro/Mobile/Distance Field");
+        Shader overlaySDF = Shader.Find("TextMeshPro/Distance Field Overlay");
+
+        string[] overlayMaterials = {
+            "Roboto-ExtraBold SDF Material",
+            "Roboto_Condensed-ExtraBold SDF Material",
+            "Roboto_Condensed-Regular SDF Material"
+        };
 
         foreach (string guid in AssetDatabase.FindAssets("t:Material"))
         {
             Material mat = AssetDatabase.LoadAssetAtPath<Material>(AssetDatabase.GUIDToAssetPath(guid));
-            if (mat != null && (mat.shader == null || mat.shader.name.Contains("InternalErrorShader") || mat.name.Contains("SDF")))
+            if (mat == null) continue;
+
+            if (overlayMaterials.Any(name => mat.name.Contains(name)))
             {
-                mat.shader = targetSDF;
-                EditorUtility.SetDirty(mat);
+                if (overlaySDF != null && mat.shader != overlaySDF)
+                {
+                    mat.shader = overlaySDF;
+                    EditorUtility.SetDirty(mat);
+                }
             }
+            else if (mat.shader == null || mat.shader.name.Contains("InternalErrorShader") || mat.name.Contains("SDF"))
+            {
+                if (normalSDF != null)
+                {
+                    mat.shader = normalSDF;
+                    EditorUtility.SetDirty(mat);
+                }
+            }
+        }
+    }
+
+    private static void EnsureEventSystem()
+    {
+        if (UnityEngine.Object.FindAnyObjectByType<UnityEngine.EventSystems.EventSystem>() == null)
+        {
+            var es = new GameObject("EventSystem", typeof(UnityEngine.EventSystems.EventSystem), typeof(UnityEngine.EventSystems.StandaloneInputModule));
+            Debug.Log("Janitor: Created missing EventSystem to restore UI clicks.");
         }
     }
 
