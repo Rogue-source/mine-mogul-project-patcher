@@ -15,31 +15,39 @@ MonoBehaviour:
   _folderMappings:
   - key: AnimationClip
     sourceName: AnimationClip
-    outputPath: Animation\AnimationClips
+    outputPath: AnimationClip
     exclude: 0
   - key: AnimatorController
     sourceName: AnimatorController
-    outputPath: Animation\AnimatorControllers
+    outputPath: AnimatorController
     exclude: 0
   - key: AudioClip
     sourceName: AudioClip
-    outputPath: Audio\AudioClips
+    outputPath: AudioClip
     exclude: 0
-  - key: AudioMixerController
-    sourceName: AudioMixerController
-    outputPath: Audio\AudioMixerControllers
+  - key: Avatar
+    sourceName: Avatar
+    outputPath: Avatar
+    exclude: 0
+  - key: ComputeShader
+    sourceName: ComputeShader
+    outputPath: ComputeShader
     exclude: 0
   - key: Cubemap
     sourceName: Cubemap
-    outputPath: Scenes\Cubemaps
+    outputPath: Cubemap
     exclude: 0
-  - key: Editor
-    sourceName: Editor
-    outputPath: Editor
+  - key: CustomRenderTexture
+    sourceName: CustomRenderTexture
+    outputPath: CustomRenderTexture
     exclude: 0
   - key: Font
     sourceName: Font
-    outputPath: Fonts\TextMeshPro
+    outputPath: Font
+    exclude: 0
+  - key: GameObject
+    sourceName: GameObject
+    outputPath: GameObject
     exclude: 0
   - key: LightingSettings
     sourceName: LightingSettings
@@ -47,31 +55,27 @@ MonoBehaviour:
     exclude: 0
   - key: Material
     sourceName: Material
-    outputPath: Materials
+    outputPath: Material
     exclude: 0
   - key: Mesh
     sourceName: Mesh
-    outputPath: Meshes
+    outputPath: Mesh
     exclude: 0
   - key: MonoBehaviour
     sourceName: MonoBehaviour
-    outputPath: ScriptableObjects
+    outputPath: MonoBehaviour
     exclude: 0
-  - key: NavMeshData
-    sourceName: NavMeshData
-    outputPath: Scenes\NavMeshData
+  - key: OcclusionCullingData
+    sourceName: OcclusionCullingData
+    outputPath: OcclusionCullingData
     exclude: 0
-  - key: PhysicMaterial
-    sourceName: PhysicMaterial
-    outputPath: PhysicsMaterials
+  - key: PhysicsMaterial
+    sourceName: PhysicsMaterial
+    outputPath: PhysicsMaterial
     exclude: 0
-  - key: GameObject
-    sourceName: GameObject
-    outputPath: Prefabs
-    exclude: 0
-  - key: RenderTexture
-    sourceName: RenderTexture
-    outputPath: Textures\RenderTextures
+  - key: Plugins
+    sourceName: Plugins
+    outputPath: Plugins
     exclude: 0
   - key: Resources
     sourceName: Resources
@@ -85,17 +89,13 @@ MonoBehaviour:
     sourceName: Scripts
     outputPath: Scripts
     exclude: 0
-  - key: Settings
-    sourceName: Settings
-    outputPath: Settings
-    exclude: 0
   - key: Shader
     sourceName: Shader
-    outputPath: Shaders
+    outputPath: Shader
     exclude: 0
   - key: Sprite
     sourceName: Sprite
-    outputPath: Textures\Sprites
+    outputPath: Sprite
     exclude: 0
   - key: StreamingAssets
     sourceName: StreamingAssets
@@ -103,56 +103,48 @@ MonoBehaviour:
     exclude: 0
   - key: TerrainData
     sourceName: TerrainData
-    outputPath: Scenes\TerrainData
+    outputPath: TerrainData
     exclude: 0
   - key: TerrainLayer
     sourceName: TerrainLayer
-    outputPath: Textures\TerrainLayers
+    outputPath: TerrainLayer
     exclude: 0
   - key: Texture2D
     sourceName: Texture2D
-    outputPath: Textures\Texture2Ds
-    exclude: 0
-  - key: Texture3D
-    sourceName: Texture3D
-    outputPath: Textures\Texture3Ds
-    exclude: 0
-  - key: VideoClip
-    sourceName: VideoClip
-    outputPath: Videos
-    exclude: 0
-  - key: Plugins
-    sourceName: Plugins
-    outputPath: Plugins
+    outputPath: Texture2D
     exclude: 0
   _foldersToCopy:
   - AnimationClip
   - AnimatorController
   - AudioClip
-  - AudioMixerController
-  - Editor
+  - Avatar
+  - ComputeShader
+  - Cubemap
+  - CustomRenderTexture
   - Font
+  - GameObject
+  - LineRenderer
   - LightingSettings
   - Material
   - Mesh
-  - GameObject
-  - PhysicMaterial
-  - Resources
-  - Settings
-  - Scenes
+  - MeshRenderer
   - MonoBehaviour
-  - NavMeshData
-  - Cubemap
-  - TerrainData
+  - OcclusionCullingData
+  - ParticleSystemRenderer
+  - PhysicsManager
+  - PhysicsMaterial
+  - Plugins
+  - Resources
+  - Scenes
+  - Scripts
   - Shader
-  - Texture2D
-  - Texture3D
-  - RenderTexture
-  - TerrainLayer
+  - SkinnedMeshRenderer
   - Sprite
   - StreamingAssets
-  - VideoClip
-  - Plugins
+  - TerrainData
+  - TerrainLayer
+  - Texture2D
+  - QualitySettings
   - Scripts\Assembly-CSharp
   - Scripts\Photon3Unity3D
   - Scripts\PhotonChat
