@@ -34,21 +34,23 @@ public static class RenderPipelineJanitor
         
         if (!Directory.Exists(targetDir)) Directory.CreateDirectory(targetDir);
 
-        string[] allFiles = Directory.GetFiles(Application.dataPath, "*.dll", SearchOption.AllDirectories);
+        string projectRoot = Directory.GetParent(Application.dataPath).FullName;
+        string[] allFiles = Directory.GetFiles(projectRoot, "*.dll", SearchOption.AllDirectories);
         
         foreach (string fullPath in allFiles)
         {
             string fileName = Path.GetFileName(fullPath);
             if (targets.Contains(fileName) && !fullPath.Contains("Assets/Plugins/DOTween"))
             {
-                string relativePath = "Assets" + fullPath.Substring(Application.dataPath.Length);
                 string destination = Path.Combine(targetDir, fileName);
                 
                 if (!File.Exists(destination))
                 {
-                    FileUtil.MoveFileOrDirectory(relativePath, destination);
-                    if (File.Exists(relativePath + ".meta"))
-                        FileUtil.MoveFileOrDirectory(relativePath + ".meta", destination + ".meta");
+                    File.Copy(fullPath, destination, true);
+                    string metaPath = fullPath + ".meta";
+                    if (File.Exists(metaPath)) File.Copy(metaPath, destination + ".meta", true);
+                    
+                    Debug.Log($"[Patcher] Successfully pulled {fileName} from project root into Plugins.");
                 }
             }
         }
