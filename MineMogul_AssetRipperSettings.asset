@@ -123,28 +123,36 @@ MonoBehaviour:
   - CustomRenderTexture
   - Font
   - GameObject
-  - LineRenderer
   - LightingSettings
   - Material
   - Mesh
-  - MeshRenderer
   - MonoBehaviour
   - OcclusionCullingData
-  - ParticleSystemRenderer
-  - PhysicsManager
-  - PhysicsMaterial
+  - PhysicMaterial
   - Plugins
   - Resources
   - Scenes
   - Scripts
   - Shader
-  - SkinnedMeshRenderer
   - Sprite
   - StreamingAssets
   - TerrainData
   - TerrainLayer
   - Texture2D
+  - 129
+  - LineRenderer
+  - MeshRenderer
+  - ParticleSystemRenderer
+  - PhysicsManager
   - QualitySettings
+  - SkinnedMeshRenderer
+  - Settings
+  - NavMeshData
+  - Texture3D
+  - RenderTexture
+  - VideoClip
+  - Editor
+  - AudioMixerController
   - Scripts\Assembly-CSharp
   - Scripts\Photon3Unity3D
   - Scripts\PhotonChat
@@ -160,6 +168,8 @@ MonoBehaviour:
   - Scripts\Unity.Burst.Unsafe
   - Scripts\Unity.Burst.Mathematics
   - Scripts\Unity.Jobs
+  - Scripts\Unity.InputSystem
+  - Scripts\Unity.Collections
   _projectSettingFilesToCopy:
   - NavMeshAreas.asset
   - TagManager.asset
@@ -169,10 +179,9 @@ MonoBehaviour:
   - InputManager.asset
   - AudioManager.asset
   - DelayedCallManager.asset
-  - DynamicsManager.asset
   - EditorBuildSettings.asset
   - EditorSettings.asset
-  - GraphicsSettngs.asset
+  - GraphicsSettings.asset
   - Physics2DSettings.asset
   - ProjectSettings.asset
   - StreamingManager.asset
