@@ -10,8 +10,6 @@ namespace Rogue.MineMogulProjectPatcher.Editor {
             stepPipeline.OpenSceneAtEnd("Main");
             
             stepPipeline.InsertLast(new FixES3Step());
-            stepPipeline.InsertLast(new GeneratePhotonAssembliesStep());
-            stepPipeline.InsertLast(new ReplaceShadersStep());
         }
     }
 }
