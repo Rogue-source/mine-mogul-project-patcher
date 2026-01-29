@@ -7,7 +7,7 @@ using UnityEngine;
 
 namespace Rogue.MineMogulProjectPatcher.Editor {
     public struct ReplaceShadersStep : IPatcherStep {
-        [MenuItem("Tools/R.E.P.O. Project Patcher/Replace Shaders")]
+        [MenuItem("Tools/MineMogul Project Patcher/Replace Shaders")]
         static void MenuItem() {
             ReplaceShaders();
         }
@@ -18,8 +18,8 @@ namespace Rogue.MineMogulProjectPatcher.Editor {
             var count = 0;
             
             try {
-                var gameShadersFolder = "Assets/REPO/Game/Shaders";
-                var materialsFolder = "Assets/REPO/Game/Materials";
+                var gameShadersFolder = "Assets/MineMogul/Game/Shaders";
+                var materialsFolder = "Assets/MineMogul/Game/Materials";
                 var customShadersFolder = $"Packages/{Constants.PackageName}/Shaders";
             
                 var shaderReplacements = new Dictionary<Shader, Shader>();

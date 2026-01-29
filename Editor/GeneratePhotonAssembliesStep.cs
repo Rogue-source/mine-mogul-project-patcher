@@ -14,7 +14,7 @@ namespace Rogue.MineMogulProjectPatcher.Editor {
     // This is a dirty solution to make sure that those mods can load,
     // by creating assembly definitions for each script folder.
     public struct GeneratePhotonAssembliesStep : IPatcherStep {
-        [MenuItem("Tools/R.E.P.O. Project Patcher/Generate Photon Assembly Definitions")]
+        [MenuItem("Tools/MineMogul Project Patcher/Generate Photon Assembly Definitions")]
         static void MenuItem() {
             GenerateDefinitions();
             EditorUtility.RequestScriptReload();
@@ -62,7 +62,7 @@ namespace Rogue.MineMogulProjectPatcher.Editor {
         }
 
         static void GenerateDefinitions() {
-            var scriptsFolder = Path.Combine(Application.dataPath, "REPO", "Game", "Scripts");
+            var scriptsFolder = Path.Combine(Application.dataPath, "MineMogul", "Game", "Scripts");
             
             foreach (var (assembly, dependencies) in Dependencies) {
                 var folderPath = Path.Combine(scriptsFolder, assembly);
