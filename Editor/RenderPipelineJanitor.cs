@@ -11,17 +11,15 @@ public static class RenderPipelineJanitor
 {
     static RenderPipelineJanitor()
     {
-        // This runs automatically every time scripts compile or Unity opens
+  
         AutomateSetup();
     }
 
-    [MenuItem("Tools/Mine Mogul Project Patcher/Force Project Clean & Refresh")]
+    [MenuItem("Tools/MineMogul Project Patcher/Force Project Clean & Refresh")]
     public static void ManualTrigger()
     {
         Debug.Log("Janitor: Manual Refresh Triggered...");
         AutomateSetup();
-        
-        // Forces Unity to scan for file changes and recompile everything
         AssetDatabase.Refresh();
         CompilationPipeline.RequestScriptCompilation();
         
