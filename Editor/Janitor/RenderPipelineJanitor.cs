@@ -8,15 +8,51 @@ using System.Collections.Generic;
 [InitializeOnLoad]
 public static class RenderPipelineJanitor
 {
+    private static int lastFileCount = -1;
+    private static float stabilityTimer = 0;
+    private const float WAIT_TIME = 4.0f;
+
+    private static string GetRipperPath() 
+    {
+        string projectRoot = Directory.GetParent(Application.dataPath).FullName;
+        return Path.Combine(projectRoot, "AssetRipperOutput");
+    }
+    
     static RenderPipelineJanitor()
     {
-        AutomateSetup();
+        EditorApplication.update += WatchForRipperOutput;
     }
 
-    private static void AutomateSetup()
+    private static void WatchForRipperOutput()
+    {
+        if (EditorApplication.isUpdating || EditorApplication.isCompiling) return;
+
+        string targetPath = GetRipperPath();
+        if (!Directory.Exists(targetPath)) return;
+
+        string[] currentFiles = Directory.GetFiles(targetPath, "*.*", SearchOption.AllDirectories);
+        
+        if (currentFiles.Length == 0) return;
+
+        if (currentFiles.Length != lastFileCount)
+        {
+            lastFileCount = currentFiles.Length;
+            stabilityTimer = (float)EditorApplication.timeSinceStartup;
+            return;
+        }
+
+        if (EditorApplication.timeSinceStartup - stabilityTimer < WAIT_TIME) return;
+
+        Debug.Log($"[Patcher] Ripper folder stable with {currentFiles.Length} files. Starting automated import...");
+        
+        EditorApplication.update -= WatchForRipperOutput;
+        RunFullCleanup(targetPath);
+    }
+
+    private static void RunFullCleanup(string ripperSource)
     {
         MoveDLLs();
-        MoveMeshes();
+        MoveMeshes(ripperSource);
         FixMetaSettings("Assets/Plugins/DOTween");
         FixMetaSettings("Assets/MineMogul/Plugins");
         DeleteConflictingScripts();
@@ -25,35 +61,27 @@ public static class RenderPipelineJanitor
         FixTextShaders();
         RelinkMissingAssets();
 
-        if (EditorApplication.isUpdating) return;
         AssetDatabase.Refresh();
+        Debug.Log("[Patcher] Automated Setup Complete. Meshes and Materials should now be linked.");
     }
 
-    private static void MoveMeshes()
+    private static void MoveMeshes(string searchRoot)
     {
         string targetDir = "Assets/MineMogul/Meshes";
         if (!Directory.Exists(targetDir)) Directory.CreateDirectory(targetDir);
 
-        string projectRoot = Directory.GetParent(Application.dataPath).FullName;
         string[] extensions = { "*.fbx", "*.obj", "*.asset" };
-        
         foreach (var ext in extensions)
         {
-            string[] files = Directory.GetFiles(projectRoot, ext, SearchOption.AllDirectories);
+            string[] files = Directory.GetFiles(searchRoot, ext, SearchOption.AllDirectories);
             foreach (string fullPath in files)
             {
-                if (fullPath.Contains("\\Assets\\") || fullPath.Contains("\\Library\\") || fullPath.Contains("\\Packages\\")) 
-                    continue;
-
+                if (fullPath.Contains(Application.dataPath.Replace("/", "\\"))) continue;
+                
                 string fileName = Path.GetFileName(fullPath);
                 string destination = Path.Combine(targetDir, fileName);
 
-                if (!File.Exists(destination))
-                {
-                    File.Copy(fullPath, destination, true);
-                    if (File.Exists(fullPath + ".meta")) File.Copy(fullPath + ".meta", destination + ".meta", true);
-                    Debug.Log($"[Patcher] Imported Mesh: {fileName}");
-                }
+                if (!File.Exists(destination)) File.Copy(fullPath, destination, true);
             }
         }
     }
@@ -67,72 +95,63 @@ public static class RenderPipelineJanitor
             GameObject prefab = PrefabUtility.LoadPrefabContents(path);
             bool changed = false;
 
-            var filters = prefab.GetComponentsInChildren<MeshFilter>(true);
-            foreach (var filter in filters)
+            foreach (var filter in prefab.GetComponentsInChildren<MeshFilter>(true))
             {
                 if (filter.sharedMesh == null)
                 {
                     Mesh foundMesh = FindAssetByName<Mesh>(filter.gameObject.name);
-                    if (foundMesh != null)
-                    {
-                        filter.sharedMesh = foundMesh;
-                        changed = true;
-                    }
+                    if (foundMesh != null) { filter.sharedMesh = foundMesh; changed = true; }
                 }
             }
 
-            if (changed)
+            foreach (var renderer in prefab.GetComponentsInChildren<MeshRenderer>(true))
             {
-                PrefabUtility.SaveAsPrefabAsset(prefab, path);
+                Material[] sharedMats = renderer.sharedMaterials;
+                for (int i = 0; i < sharedMats.Length; i++)
+                {
+                    if (sharedMats[i] == null)
+                    {
+                        Material foundMat = FindAssetByName<Material>(renderer.gameObject.name);
+                        if (foundMat != null) { sharedMats[i] = foundMat; changed = true; }
+                    }
+                }
+                if (changed) renderer.sharedMaterials = sharedMats;
             }
+
+            if (changed) PrefabUtility.SaveAsPrefabAsset(prefab, path);
             PrefabUtility.UnloadPrefabContents(prefab);
         }
     }
 
-    private static T FindAssetByName<T>(string name) where T : Object
+    private static T FindAssetByName<T>(string name) where T : UnityEngine.Object
     {
         string typeFilter = typeof(T) == typeof(Mesh) ? "t:Mesh" : "t:Material";
         string[] guids = AssetDatabase.FindAssets($"{name} {typeFilter}");
-        if (guids.Length > 0)
-        {
-            return AssetDatabase.LoadAssetAtPath<T>(AssetDatabase.GUIDToAssetPath(guids[0]));
-        }
+        if (guids.Length > 0) return AssetDatabase.LoadAssetAtPath<T>(AssetDatabase.GUIDToAssetPath(guids[0]));
         return null;
     }
 
     private static void MoveDLLs()
     {
         string targetDir = "Assets/Plugins/DOTween";
-        string[] targets = { "DOTween.dll", "DOTweenPro.dll" };
         if (!Directory.Exists(targetDir)) Directory.CreateDirectory(targetDir);
         string projectRoot = Directory.GetParent(Application.dataPath).FullName;
-        string[] allFiles = Directory.GetFiles(projectRoot, "*.dll", SearchOption.AllDirectories);
-        foreach (string fullPath in allFiles)
+        foreach (string fullPath in Directory.GetFiles(projectRoot, "*.dll", SearchOption.AllDirectories))
         {
             string fileName = Path.GetFileName(fullPath);
-            if (targets.Contains(fileName) && !fullPath.Contains("Assets/Plugins/DOTween"))
-            {
-                string destination = Path.Combine(targetDir, fileName);
-                if (!File.Exists(destination))
-                {
-                    File.Copy(fullPath, destination, true);
-                    if (File.Exists(fullPath + ".meta")) File.Copy(fullPath + ".meta", destination + ".meta", true);
-                }
-            }
+            if ((fileName == "DOTween.dll" || fileName == "DOTweenPro.dll") && !fullPath.Contains("Assets/Plugins/DOTween"))
+                File.Copy(fullPath, Path.Combine(targetDir, fileName), true);
         }
     }
 
     private static void FixMetaSettings(string path)
     {
         if (!Directory.Exists(path)) return;
-        string[] metas = Directory.GetFiles(path, "*.dll.meta", SearchOption.AllDirectories);
-        foreach (var metaPath in metas)
+        foreach (var metaPath in Directory.GetFiles(path, "*.dll.meta", SearchOption.AllDirectories))
         {
             string content = File.ReadAllText(metaPath);
-            bool changed = false;
-            if (content.Contains("isPredefined: 0")) { content = content.Replace("isPredefined: 0", "isPredefined: 1"); changed = true; }
-            if (content.Contains("validateReferences: 1")) { content = content.Replace("validateReferences: 1", "validateReferences: 0"); changed = true; }
-            if (changed) File.WriteAllText(metaPath, content);
+            content = content.Replace("isPredefined: 0", "isPredefined: 1").Replace("validateReferences: 1", "validateReferences: 0");
+            File.WriteAllText(metaPath, content);
         }
     }
 
@@ -140,19 +159,13 @@ public static class RenderPipelineJanitor
     {
         Shader targetSDF = Shader.Find("TextMeshPro/Mobile/Distance Field");
         if (targetSDF == null) return;
-        string[] materialGuids = AssetDatabase.FindAssets("t:Material");
-        foreach (string guid in materialGuids)
+        foreach (string guid in AssetDatabase.FindAssets("t:Material"))
         {
-            string path = AssetDatabase.GUIDToAssetPath(guid);
-            Material mat = AssetDatabase.LoadAssetAtPath<Material>(path);
-            if (mat != null && mat.shader != null)
+            Material mat = AssetDatabase.LoadAssetAtPath<Material>(AssetDatabase.GUIDToAssetPath(guid));
+            if (mat != null && mat.shader != null && (mat.shader.name.Contains("Universal") || mat.name.Contains("SDF")))
             {
-                if (mat.shader.name.Contains("Universal Render Pipeline/TextMeshPro") || mat.shader.name == "TextMeshPro/Distance Field" || mat.name.Contains("SDF")) 
-                {
-                    mat.shader = targetSDF;
-                    mat.EnableKeyword("OUTLINE_OFF");
-                    EditorUtility.SetDirty(mat);
-                }
+                mat.shader = targetSDF;
+                EditorUtility.SetDirty(mat);
             }
         }
     }
@@ -166,25 +179,15 @@ public static class RenderPipelineJanitor
     private static void ResetRenderPipeline()
     {
         GraphicsSettings.defaultRenderPipeline = null;
-        for (int i = 0; i < QualitySettings.names.Length; i++) {
-            QualitySettings.SetQualityLevel(i);
-            QualitySettings.renderPipeline = null;
-        }
-        AssetDatabase.SaveAssets();
+        for (int i = 0; i < QualitySettings.names.Length; i++) { QualitySettings.SetQualityLevel(i); QualitySettings.renderPipeline = null; }
     }
 
-    public static void CleanManifest()
+    private static void CleanManifest()
     {
         string manifestPath = Path.Combine(Directory.GetCurrentDirectory(), "Packages", "manifest.json");
         if (!File.Exists(manifestPath)) return;
-        List<string> lines = File.ReadAllLines(manifestPath).ToList();
-        string[] forbidden = { "com.unity.render-pipelines.universal", "com.unity.render-pipelines.core", "com.unity.textmeshpro" };
-        lines = lines.Where(l => !forbidden.Any(f => l.Contains(f))).ToList();
-        if (!lines.Any(l => l.Contains("com.unity.ugui")))
-        {
-            int insertIndex = lines.FindIndex(l => l.Contains("dependencies")) + 1;
-            lines.Insert(insertIndex, "    \"com.unity.ugui\": \"2.0.0\",");
-        }
+        var forbidden = new[] { "com.unity.render-pipelines.universal", "com.unity.render-pipelines.core" };
+        var lines = File.ReadAllLines(manifestPath).Where(l => !forbidden.Any(f => l.Contains(f))).ToList();
         File.WriteAllLines(manifestPath, lines);
     }
 }
