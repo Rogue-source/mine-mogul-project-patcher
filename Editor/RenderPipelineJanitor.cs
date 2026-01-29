@@ -10,14 +10,14 @@ using System;
 [InitializeOnLoad]
 public static class RenderPipelineJanitor
 {
-    private const string Version = "2.5.0-Final";
+    private const string Version = "1.0.2-Final";
 
     static RenderPipelineJanitor()
     {
         AutomateSetup();
     }
 
-    [MenuItem("Tools/MineMogul Project Patcher/Full Nuclear Repair")]
+    [MenuItem("Tools/MineMogul Project Patcher/Fix Errors")]
     public static void ManualTrigger()
     {
         Debug.Log($"Janitor v{Version}: Manual Repair Triggered...");
@@ -37,7 +37,7 @@ public static class RenderPipelineJanitor
         FixProjectSettings();
         StopTMPPopup();  
         FixTextShaders();
-        EnsureEventSystem();
+        EnsureUIFunctionality();
 
         if (EditorApplication.isUpdating) return;
         AssetDatabase.Refresh();
@@ -117,7 +117,15 @@ public static class RenderPipelineJanitor
         if (!File.Exists(manifestPath)) return;
 
         List<string> lines = File.ReadAllLines(manifestPath).ToList();
-        string[] forbidden = { "com.unity.render-pipelines.universal", "com.unity.render-pipelines.core" };
+        
+        // Removed the crashing project-patcher and deprecated TMP
+        string[] forbidden = { 
+            "com.unity.render-pipelines.universal", 
+            "com.unity.render-pipelines.core",
+            "com.nomnom.unity-project-patcher-bepinex",
+            "com.unity.textmeshpro"
+        };
+        
         lines = lines.Where(l => !forbidden.Any(f => l.Contains(f))).ToList();
         File.WriteAllLines(manifestPath, lines);
     }
@@ -157,12 +165,19 @@ public static class RenderPipelineJanitor
         }
     }
 
-    private static void EnsureEventSystem()
+    private static void EnsureUIFunctionality()
     {
+        // Force-create EventSystem if missing
         if (UnityEngine.Object.FindAnyObjectByType<UnityEngine.EventSystems.EventSystem>() == null)
         {
-            var es = new GameObject("EventSystem", typeof(UnityEngine.EventSystems.EventSystem), typeof(UnityEngine.EventSystems.StandaloneInputModule));
-            Debug.Log("Janitor: Created missing EventSystem to restore UI clicks.");
+            new GameObject("EventSystem", typeof(UnityEngine.EventSystems.EventSystem), typeof(UnityEngine.EventSystems.StandaloneInputModule));
+        }
+
+        // Clean up Raycasters that often break in ripped projects
+        var raycasters = UnityEngine.Object.FindObjectsByType<UnityEngine.UI.GraphicRaycaster>(FindObjectsSortMode.None);
+        foreach (var ray in raycasters)
+        {
+            if (!ray.enabled) ray.enabled = true;
         }
     }
 
