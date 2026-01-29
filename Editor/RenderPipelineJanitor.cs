@@ -11,7 +11,6 @@ public static class RenderPipelineJanitor
 {
     static RenderPipelineJanitor()
     {
-        // Reverted to automatic trigger upon script loading
         AutomateSetup();
     }
 
@@ -22,8 +21,7 @@ public static class RenderPipelineJanitor
         AutomateSetup();
         AssetDatabase.Refresh();
         CompilationPipeline.RequestScriptCompilation();
-        
-        Debug.Log("Janitor: Refresh Complete. If errors persist, try 'Assets > Reimport All'.");
+        Debug.Log("Janitor: Refresh Complete.");
     }
 
     private static void AutomateSetup()
@@ -33,9 +31,29 @@ public static class RenderPipelineJanitor
         CleanManifest(); 
         ResetRenderPipeline();
         FixTextShaders();
+        FixProjectSettings();
+        ImportTMPResources();
 
         if (EditorApplication.isUpdating) return;
         AssetDatabase.Refresh();
+    }
+
+    private static void FixProjectSettings()
+    {
+        PlayerSettings.SetUseDefaultGraphicsAPIs(BuildTarget.StandaloneWindows64, false);
+        GraphicsDeviceType[] apis = { GraphicsDeviceType.Direct3D11 };
+        PlayerSettings.SetGraphicsAPIs(BuildTarget.StandaloneWindows64, apis);
+        PlayerSettings.graphicsJobs = false;
+        
+        Debug.Log("Janitor: Forced Graphics API to D3D11 to stop UAV spam.");
+    }
+
+    private static void ImportTMPResources()
+    {
+        if (!Directory.Exists("Assets/TextMesh Pro"))
+        {
+            Debug.Log("Janitor: TextMesh Pro resources missing. Please go to Window > TextMeshPro > Import TMP Essential Resources.");
+        }
     }
 
     private static void CleanupDrip()
@@ -49,7 +67,6 @@ public static class RenderPipelineJanitor
             "Assets/MineMogul/Game/Scripts/UnityUIExtensions",
             "Assets/MineMogul/Game/Scripts/UnityUIExtensions.examples",
             "Assets/MineMogul/Game/Plugins/Assembly-CSharp-firstpass/DG",
-            // Added the requested Animation Rigging folders
             "Assets/MineMogul/Game/Scripts/Unity.Animation.Rigging",
             "Assets/MineMogul/Game/Scripts/Unity.Animation.Rigging.DocCodeExamples"
         };
