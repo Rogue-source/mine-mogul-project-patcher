@@ -30,9 +30,8 @@ public static class RenderPipelineJanitor
         MoveDLLs();      
         CleanManifest(); 
         ResetRenderPipeline();
-        FixTextShaders();
         FixProjectSettings();
-        ImportTMPResources();
+        FixTextShaders();
 
         if (EditorApplication.isUpdating) return;
         AssetDatabase.Refresh();
@@ -40,20 +39,17 @@ public static class RenderPipelineJanitor
 
     private static void FixProjectSettings()
     {
-        PlayerSettings.SetUseDefaultGraphicsAPIs(BuildTarget.StandaloneWindows64, false);
-        GraphicsDeviceType[] apis = { GraphicsDeviceType.Direct3D11 };
-        PlayerSettings.SetGraphicsAPIs(BuildTarget.StandaloneWindows64, apis);
-        PlayerSettings.graphicsJobs = false;
-        
-        Debug.Log("Janitor: Forced Graphics API to D3D11 to stop UAV spam.");
-    }
-
-    private static void ImportTMPResources()
-    {
-        if (!Directory.Exists("Assets/TextMesh Pro"))
+        if (PlayerSettings.graphicsJobs)
         {
-            Debug.Log("Janitor: TextMesh Pro resources missing. Please go to Window > TextMeshPro > Import TMP Essential Resources.");
+            PlayerSettings.graphicsJobs = false;
         }
+
+        PlayerSettings.SetUseDefaultGraphicsAPIs(BuildTarget.StandaloneWindows64, false);
+
+        GraphicsDeviceType[] apis = { GraphicsDeviceType.Direct3D12, GraphicsDeviceType.Direct3D11 };
+        PlayerSettings.SetGraphicsAPIs(BuildTarget.StandaloneWindows64, apis);
+        
+        Debug.Log("Janitor: Graphics API forced to D3D12 to resolve Lut3DBaker spam.");
     }
 
     private static void CleanupDrip()
@@ -76,7 +72,7 @@ public static class RenderPipelineJanitor
             if (Directory.Exists(path))
             {
                 AssetDatabase.DeleteAsset(path);
-                Debug.Log($"Janitor: Removed duplicate assembly folder: {path}");
+                Debug.Log($"Janitor: Removed conflicting folder: {path}");
             }
         }
     }
@@ -132,7 +128,7 @@ public static class RenderPipelineJanitor
         foreach (string guid in AssetDatabase.FindAssets("t:Material"))
         {
             Material mat = AssetDatabase.LoadAssetAtPath<Material>(AssetDatabase.GUIDToAssetPath(guid));
-            if (mat != null && mat.shader != null && (mat.shader.name.Contains("Universal") || mat.name.Contains("SDF")))
+            if (mat != null && (mat.shader == null || mat.shader.name.Contains("InternalErrorShader") || mat.name.Contains("SDF")))
             {
                 mat.shader = targetSDF;
                 EditorUtility.SetDirty(mat);
