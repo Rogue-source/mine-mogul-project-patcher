@@ -11,7 +11,7 @@ public static class RenderPipelineJanitor
 {
     static RenderPipelineJanitor()
     {
-  
+        // Reverted to automatic trigger upon script loading
         AutomateSetup();
     }
 
@@ -48,7 +48,10 @@ public static class RenderPipelineJanitor
             "Assets/MineMogul/Game/Scripts/DOTweenPro",
             "Assets/MineMogul/Game/Scripts/UnityUIExtensions",
             "Assets/MineMogul/Game/Scripts/UnityUIExtensions.examples",
-            "Assets/MineMogul/Game/Plugins/Assembly-CSharp-firstpass/DG"
+            "Assets/MineMogul/Game/Plugins/Assembly-CSharp-firstpass/DG",
+            // Added the requested Animation Rigging folders
+            "Assets/MineMogul/Game/Scripts/Unity.Animation.Rigging",
+            "Assets/MineMogul/Game/Scripts/Unity.Animation.Rigging.DocCodeExamples"
         };
         
         foreach (string path in foldersToDelete)
