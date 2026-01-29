@@ -8,7 +8,8 @@ namespace Rogue.MineMogulProjectPatcher.Editor {
             stepPipeline.SetInputSystem(InputSystemType.Both);
             stepPipeline.SetGameViewResolution("16:9");
             stepPipeline.OpenSceneAtEnd("Main");
-            
+            stepPipeline.InsertLast(new GeneratePhotonAssembliesStep());
+            stepPipeline.InsertLast(new ReplaceShadersStep());
             stepPipeline.InsertLast(new FixES3Step());
         }
     }
