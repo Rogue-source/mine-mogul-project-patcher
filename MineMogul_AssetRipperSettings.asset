@@ -164,8 +164,6 @@ MonoBehaviour:
   - Scripts\PhotonVoice.PUN
   _filesToExcludeFromCopy: []
   _foldersToExcludeFromRead:
-  - Scripts\Unity.Burst
-  - Scripts\Unity.Burst.Unsafe
   - Scripts\Unity.Burst.Mathematics
   - Scripts\Unity.Jobs
   - Scripts\Unity.InputSystem
