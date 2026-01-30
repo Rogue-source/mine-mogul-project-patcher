@@ -162,6 +162,8 @@ MonoBehaviour:
   - Scripts\PhotonVoice
   - Scripts\PhotonVoice.API
   - Scripts\PhotonVoice.PUN
+  - AssetRipper
+  - UnreadableAssets
   _filesToExcludeFromCopy: []
   _foldersToExcludeFromRead:
   - Scripts\Unity.Burst.Mathematics

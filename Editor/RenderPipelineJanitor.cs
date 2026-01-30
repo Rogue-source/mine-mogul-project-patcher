@@ -10,26 +10,23 @@ using System;
 [InitializeOnLoad]
 public static class RenderPipelineJanitor
 {
-    private const string Version = "1.0.2-Final";
+    private const string Version = "2.7.0-EventFix";
 
     static RenderPipelineJanitor()
     {
         AutomateSetup();
     }
 
-    [MenuItem("Tools/MineMogul Project Patcher/Fix Errors")]
+    [MenuItem("Tools/MineMogul Project Patcher/Full Nuclear Repair")]
     public static void ManualTrigger()
     {
         Debug.Log($"Janitor v{Version}: Manual Repair Triggered...");
         AutomateSetup();
         AssetDatabase.Refresh();
-        CompilationPipeline.RequestScriptCompilation();
     }
 
     private static void AutomateSetup()
     {
-        Debug.Log($"Janitor v{Version}: Running Cleanup...");
-        
         CleanupDrip();   
         MoveDLLs();      
         CleanManifest(); 
@@ -37,7 +34,7 @@ public static class RenderPipelineJanitor
         FixProjectSettings();
         StopTMPPopup();  
         FixTextShaders();
-        EnsureUIFunctionality();
+        RepairBrokenEventSystem();
 
         if (EditorApplication.isUpdating) return;
         AssetDatabase.Refresh();
@@ -51,11 +48,63 @@ public static class RenderPipelineJanitor
         PlayerSettings.SetGraphicsAPIs(BuildTarget.StandaloneWindows64, apis);
     }
 
-    private static void StopTMPPopup()
+    private static void RepairBrokenEventSystem()
     {
-        if (!Directory.Exists("Assets/TextMesh Pro"))
+        var es = UnityEngine.Object.FindAnyObjectByType<UnityEngine.EventSystems.EventSystem>();
+        if (es == null)
         {
-            Directory.CreateDirectory("Assets/TextMesh Pro");
+            new GameObject("EventSystem", typeof(UnityEngine.EventSystems.EventSystem), typeof(UnityEngine.EventSystems.StandaloneInputModule));
+            return;
+        }
+
+        GameObject esObj = es.gameObject;
+        var components = esObj.GetComponents<Component>();
+        foreach (var c in components)
+        {
+            if (c == null)
+            {
+                GameObject.DestroyImmediate(c);
+            }
+        }
+
+        if (esObj.GetComponent<UnityEngine.EventSystems.BaseInputModule>() == null)
+        {
+            esObj.AddComponent<UnityEngine.EventSystems.StandaloneInputModule>();
+        }
+    }
+
+    private static void FixTextShaders()
+    {
+        Shader normalSDF = Shader.Find("TextMeshPro/Mobile/Distance Field");
+        Shader overlaySDF = Shader.Find("TextMeshPro/Distance Field Overlay");
+
+        string[] overlayMaterials = {
+            "Roboto-ExtraBold SDF Material",
+            "Roboto_Condensed-ExtraBold SDF Material",
+            "Roboto_Condensed-Regular SDF Material"
+        };
+
+        foreach (string guid in AssetDatabase.FindAssets("t:Material"))
+        {
+            Material mat = AssetDatabase.LoadAssetAtPath<Material>(AssetDatabase.GUIDToAssetPath(guid));
+            if (mat == null) continue;
+
+            if (overlayMaterials.Any(name => mat.name.Contains(name)))
+            {
+                if (overlaySDF != null && mat.shader != overlaySDF)
+                {
+                    mat.shader = overlaySDF;
+                    EditorUtility.SetDirty(mat);
+                }
+            }
+            else if (mat.shader == null || mat.shader.name.Contains("InternalErrorShader") || mat.name.Contains("SDF"))
+            {
+                if (normalSDF != null)
+                {
+                    mat.shader = normalSDF;
+                    EditorUtility.SetDirty(mat);
+                }
+            }
         }
     }
 
@@ -68,10 +117,7 @@ public static class RenderPipelineJanitor
             "Assets/MineMogul/Game/Scripts/DOTween",
             "Assets/MineMogul/Game/Scripts/DOTweenPro",
             "Assets/MineMogul/Game/Scripts/UnityUIExtensions",
-            "Assets/MineMogul/Game/Scripts/UnityUIExtensions.examples",
             "Assets/MineMogul/Game/Plugins/Assembly-CSharp-firstpass/DG",
-            "Assets/MineMogul/Game/Scripts/Unity.Animation.Rigging",
-            "Assets/MineMogul/Game/Scripts/Unity.Animation.Rigging.DocCodeExamples",
             "Assets/MineMogul/Game/ComputeShader/Lut3DBaker.asset",
             "Assets/MineMogul/Game/ComputeShader/Lut3DBaker.compute"
         };
@@ -84,6 +130,11 @@ public static class RenderPipelineJanitor
             }
         }
     }
+
+    private static void StopTMPPopup() { if (!Directory.Exists("Assets/TextMesh Pro")) Directory.CreateDirectory("Assets/TextMesh Pro"); }
+    private static void MoveDLLs() {}
+    public static void CleanManifest() {}
+    private static void ResetRenderPipeline() { GraphicsSettings.defaultRenderPipeline = null; }
 
     private static void MoveDLLs()
     {
@@ -118,7 +169,6 @@ public static class RenderPipelineJanitor
 
         List<string> lines = File.ReadAllLines(manifestPath).ToList();
         
-        // Removed the crashing project-patcher and deprecated TMP
         string[] forbidden = { 
             "com.unity.render-pipelines.universal", 
             "com.unity.render-pipelines.core",
@@ -167,13 +217,11 @@ public static class RenderPipelineJanitor
 
     private static void EnsureUIFunctionality()
     {
-        // Force-create EventSystem if missing
         if (UnityEngine.Object.FindAnyObjectByType<UnityEngine.EventSystems.EventSystem>() == null)
         {
             new GameObject("EventSystem", typeof(UnityEngine.EventSystems.EventSystem), typeof(UnityEngine.EventSystems.StandaloneInputModule));
         }
 
-        // Clean up Raycasters that often break in ripped projects
         var raycasters = UnityEngine.Object.FindObjectsByType<UnityEngine.UI.GraphicRaycaster>(FindObjectsSortMode.None);
         foreach (var ray in raycasters)
         {
