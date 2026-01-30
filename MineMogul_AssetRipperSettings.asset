@@ -207,4 +207,4 @@ MonoBehaviour:
       terrainExportMode: 0
       textExportMode: 2
       saveSettingsToDisk: 0
-  _customBuildUrl: https://github.com/AssetRipper/AssetRipper/releases/download/1.3.10/AssetRipper_win_x64.zip
+  _customBuildUrl: https://github.com/Rogue-source/AssetRipper/releases/download/v1.0.0/Release.zip
