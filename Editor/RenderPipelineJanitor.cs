@@ -10,17 +10,18 @@ using System;
 [InitializeOnLoad]
 public static class RenderPipelineJanitor
 {
-    private const string Version = "1.2.0";
+    private const string Version = "2.0.0"; // Built-In Pipeline Version
 
     static RenderPipelineJanitor()
     {
+        // Delay ensures AssetDatabase is initialized before we start cleaning
         EditorApplication.delayCall += AutomateSetup;
     }
 
     [MenuItem("Tools/MineMogul Project Patcher/Repair Test")]
     public static void ManualTrigger()
     {
-        Debug.Log($"Janitor v{Version}: Manual Repair Triggered...");
+        Debug.Log($"Janitor v{Version}: Manual Repair Triggered (Built-In Mode)...");
         AutomateSetup();
         AssetDatabase.Refresh();
     }
@@ -30,12 +31,9 @@ public static class RenderPipelineJanitor
         CleanupDrip();   
         CleanupBrokenCode(); 
         MoveDLLs();      
-        CleanManifest(); 
-        ResetRenderPipeline();
         FixProjectSettings();
         StopTMPPopup(); 	
-        FixTextShaders();
-        RepairBrokenEventSystem();
+        //RepairBrokenEventSystem();
 
         if (EditorApplication.isUpdating) return;
         AssetDatabase.Refresh();
@@ -55,10 +53,9 @@ public static class RenderPipelineJanitor
             "Assets/MineMogul/Game/Scripts/System.IO.Hashing",
             "Assets/MineMogul/Game/Scripts/System.Memory",
             "Assets/MineMogul/Game/Scripts/System.Buffers",
-            "Assets/MineMogul/Game/Scripts/System.Numerics.Vectors",
+            "Assets/MineMogul/Game/Scripts/SSCC.Runtime",
             "AssetRipperOutput/ExportedProject/Assets/Scripts/UnityEngine.UnityConsentModule",
-            "AssetRipperOutput/ExportedProject/Assets/Scripts/System.Runtime.CompilerServices.Unsafe",
-            "AssetRipperOutput/ExportedProject/Assets/Scripts/System.IO.Hashing"
+            "AssetRipperOutput/ExportedProject/Assets/Scripts/System.Runtime.CompilerServices.Unsafe"
         };
 
         bool changesMade = false;
@@ -79,7 +76,6 @@ public static class RenderPipelineJanitor
                 if (Directory.Exists(fullPath)) 
                 {
                     Directory.Delete(fullPath, true);
-                    Debug.Log($"[Janitor] Cleaned external source: {fullPath}");
                 }
             }
         }
@@ -91,7 +87,7 @@ public static class RenderPipelineJanitor
     {
         PlayerSettings.graphicsJobs = false;
         PlayerSettings.SetUseDefaultGraphicsAPIs(BuildTarget.StandaloneWindows64, false);
-        GraphicsDeviceType[] apis = { GraphicsDeviceType.Direct3D12, GraphicsDeviceType.Direct3D11 };
+        GraphicsDeviceType[] apis = { GraphicsDeviceType.Direct3D11, GraphicsDeviceType.Direct3D12 };
         PlayerSettings.SetGraphicsAPIs(BuildTarget.StandaloneWindows64, apis);
     }
 
@@ -112,44 +108,10 @@ public static class RenderPipelineJanitor
             if (c == null) GameObject.DestroyImmediate(c);
         }
 
-        if (esObj.GetComponent<UnityEngine.EventSystems.BaseInputModule>() == null)
+        if (esObj.GetComponent<UnityEngine.EventSystems.StandaloneInputModule>() == null)
         {
             esObj.AddComponent<UnityEngine.EventSystems.StandaloneInputModule>();
-        }
-    }
-
-    private static void FixTextShaders()
-    {
-        Shader normalSDF = Shader.Find("TextMeshPro/Mobile/Distance Field");
-        Shader overlaySDF = Shader.Find("TextMeshPro/Distance Field Overlay");
-
-        string[] overlayMaterials = {
-            "Roboto-ExtraBold SDF Material",
-            "Roboto_Condensed-ExtraBold SDF Material",
-            "Roboto_Condensed-Regular SDF Material"
-        };
-
-        foreach (string guid in AssetDatabase.FindAssets("t:Material"))
-        {
-            Material mat = AssetDatabase.LoadAssetAtPath<Material>(AssetDatabase.GUIDToAssetPath(guid));
-            if (mat == null) continue;
-
-            if (overlayMaterials.Any(name => mat.name.Contains(name)))
-            {
-                if (overlaySDF != null && mat.shader != overlaySDF)
-                {
-                    mat.shader = overlaySDF;
-                    EditorUtility.SetDirty(mat);
-                }
-            }
-            else if (mat.shader == null || mat.shader.name.Contains("InternalErrorShader") || mat.name.Contains("SDF"))
-            {
-                if (normalSDF != null)
-                {
-                    mat.shader = normalSDF;
-                    EditorUtility.SetDirty(mat);
-                }
-            }
+            Debug.Log("[Janitor] Restored StandaloneInputModule to EventSystem.");
         }
     }
 
@@ -159,18 +121,8 @@ public static class RenderPipelineJanitor
             "Assets/TutorialInfo",
             "Assets/MineMogul/Game/Scripts/Unity.TextMeshPro",
             "Assets/MineMogul/Game/Scripts/UnityEngine.UI",
-            "Assets/MineMogul/Game/Scripts/DOTween",
-            "Assets/MineMogul/Game/Scripts/DOTweenPro",
-            "Assets/MineMogul/Game/Scripts/UnityUIExtensions",
             "Assets/MineMogul/Game/Plugins/Assembly-CSharp-firstpass/DG",
-            "Assets/MineMogul/Game/ComputeShader/Lut3DBaker.asset",
-            "Assets/MineMogul/Game/ComputeShader/Lut3DBaker.compute",
-            "Assets/MineMogul/Game/Scripts/Unity.Animation.Rigging",
-            "Assets/MineMogul/Game/Scripts/Unity.Animation.Rigging.DocCodeExamples",	
-			"Assets/MineMogul/Game/Shader/Hidden_SSCC.shader",
-			"Assets/MineMogul/Game/Scripts/SSCC.Runtime",
-			"Assets/MineMogul/Game/Resources/SSCC.asset",
-			"Assets/MineMogul/Game/Scripts/PostProcessing/Runtime/Effects/SSCC.cs"
+            "Assets/MineMogul/Game/Scripts/Unity.Animation.Rigging"
         };
         
         foreach (string path in targets)
@@ -207,32 +159,6 @@ public static class RenderPipelineJanitor
                 }
                 catch (IOException) { }
             }
-        }
-    }
-
-    public static void CleanManifest()
-    {
-        string manifestPath = Path.Combine(Directory.GetCurrentDirectory(), "Packages", "manifest.json");
-        if (!File.Exists(manifestPath)) return;
-
-        List<string> lines = File.ReadAllLines(manifestPath).ToList();
-        
-        string[] forbidden = { 
-            "com.unity.render-pipelines.universal", 
-            "com.unity.render-pipelines.core",
-            "com.unity.textmeshpro"
-        };
-        
-        lines = lines.Where(l => !forbidden.Any(f => l.Contains(f))).ToList();
-        File.WriteAllLines(manifestPath, lines);
-    }
-
-    private static void ResetRenderPipeline()
-    {
-        GraphicsSettings.defaultRenderPipeline = null;
-        for (int i = 0; i < QualitySettings.names.Length; i++) {
-            QualitySettings.SetQualityLevel(i);
-            QualitySettings.renderPipeline = null;
         }
     }
 }
