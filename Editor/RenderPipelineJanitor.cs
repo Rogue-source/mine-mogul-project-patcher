@@ -32,8 +32,7 @@ public static class RenderPipelineJanitor
         CleanManifest(); 
         ResetRenderPipeline();
         FixProjectSettings();
-        StopTMPPopup(); 
-		ForceImportTMP();		
+        StopTMPPopup(); 	
         FixTextShaders();
         RepairBrokenEventSystem();
 
@@ -41,14 +40,6 @@ public static class RenderPipelineJanitor
         AssetDatabase.Refresh();
     }
 	
-	private static void ForceImportTMP()
-{
-    if (!Directory.Exists("Assets/TextMesh Pro/Resources"))
-    {
-        Debug.Log("Janitor: TMP Essentials not found. Importing now...");
-        AssetDatabase.ImportPackage(EditorApplication.applicationContentsPath + "/Resources/Package Manager/Editor/com.unity.textmeshpro/Package Resources/TMP Essential Resources.unitypackage", false);
-    }
-}
 
     private static void FixProjectSettings()
     {
