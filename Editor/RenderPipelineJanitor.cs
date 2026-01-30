@@ -176,7 +176,6 @@ public static class RenderPipelineJanitor
         string[] forbidden = { 
             "com.unity.render-pipelines.universal", 
             "com.unity.render-pipelines.core",
-            "com.nomnom.unity-project-patcher-bepinex",
             "com.unity.textmeshpro"
         };
         
