@@ -10,11 +10,12 @@ using System;
 [InitializeOnLoad]
 public static class RenderPipelineJanitor
 {
-    private const string Version = "1.0.0";
+    private const string Version = "1.1.0"; // Updated for Code Cleanup
 
     static RenderPipelineJanitor()
     {
-        AutomateSetup();
+        // We delay the call slightly to ensure the AssetDatabase is ready
+        EditorApplication.delayCall += AutomateSetup;
     }
 
     [MenuItem("Tools/MineMogul Project Patcher/Repair Test")]
@@ -28,6 +29,7 @@ public static class RenderPipelineJanitor
     private static void AutomateSetup()
     {
         CleanupDrip();   
+        CleanupBrokenCode(); // <--- NEW: Deletes the crashing scripts
         MoveDLLs();      
         CleanManifest(); 
         ResetRenderPipeline();
@@ -39,7 +41,54 @@ public static class RenderPipelineJanitor
         if (EditorApplication.isUpdating) return;
         AssetDatabase.Refresh();
     }
-	
+
+    // --- NEW FIX FOR YOUR COMPILER ERRORS ---
+    private static void CleanupBrokenCode()
+    {
+        // 1. Enable Unsafe Code (Solves CS0227)
+        if (!PlayerSettings.allowUnsafeCode)
+        {
+            PlayerSettings.allowUnsafeCode = true;
+            Debug.Log("[Janitor] Enabled 'Allow Unsafe Code' in Player Settings.");
+        }
+
+        // 2. Delete the specific folders causing CS0592, CS8773, and CS0122
+        string[] brokenPaths = {
+            "Assets/MineMogul/Game/Scripts/UnityEngine.UnityConsentModule",
+            "Assets/MineMogul/Game/Scripts/System.Runtime.CompilerServices.Unsafe",
+            // Also clean the source folder so they don't come back
+            "AssetRipperOutput/ExportedProject/Assets/Scripts/UnityEngine.UnityConsentModule",
+            "AssetRipperOutput/ExportedProject/Assets/Scripts/System.Runtime.CompilerServices.Unsafe"
+        };
+
+        bool changesMade = false;
+        foreach (string path in brokenPaths)
+        {
+            // Handle valid Unity Assets paths
+            if (path.StartsWith("Assets"))
+            {
+                if (AssetDatabase.IsValidFolder(path))
+                {
+                    AssetDatabase.DeleteAsset(path);
+                    Debug.Log($"[Janitor] Deleted conflict: {path}");
+                    changesMade = true;
+                }
+            }
+            // Handle external paths (AssetRipperOutput)
+            else
+            {
+                string fullPath = Path.Combine(Directory.GetParent(Application.dataPath).FullName, path);
+                if (Directory.Exists(fullPath)) 
+                {
+                    Directory.Delete(fullPath, true);
+                    Debug.Log($"[Janitor] Cleaned external source: {fullPath}");
+                }
+            }
+        }
+
+        if (changesMade) AssetDatabase.Refresh();
+    }
+    // ----------------------------------------
 
     private static void FixProjectSettings()
     {
