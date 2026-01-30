@@ -27,13 +27,13 @@ public static class RenderPipelineJanitor
 
     private static void AutomateSetup()
     {
-		ForceImportTMP();
         CleanupDrip();   
         MoveDLLs();      
         CleanManifest(); 
         ResetRenderPipeline();
         FixProjectSettings();
-        StopTMPPopup();  
+        StopTMPPopup(); 
+		ForceImportTMP();		
         FixTextShaders();
         RepairBrokenEventSystem();
 
