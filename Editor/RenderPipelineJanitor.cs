@@ -10,11 +10,10 @@ using System;
 [InitializeOnLoad]
 public static class RenderPipelineJanitor
 {
-    private const string Version = "1.1.0"; // Updated for Code Cleanup
+    private const string Version = "1.2.0";
 
     static RenderPipelineJanitor()
     {
-        // We delay the call slightly to ensure the AssetDatabase is ready
         EditorApplication.delayCall += AutomateSetup;
     }
 
@@ -29,7 +28,7 @@ public static class RenderPipelineJanitor
     private static void AutomateSetup()
     {
         CleanupDrip();   
-        CleanupBrokenCode(); // <--- NEW: Deletes the crashing scripts
+        CleanupBrokenCode(); 
         MoveDLLs();      
         CleanManifest(); 
         ResetRenderPipeline();
@@ -42,39 +41,38 @@ public static class RenderPipelineJanitor
         AssetDatabase.Refresh();
     }
 
-    // --- NEW FIX FOR YOUR COMPILER ERRORS ---
     private static void CleanupBrokenCode()
     {
-        // 1. Enable Unsafe Code (Solves CS0227)
         if (!PlayerSettings.allowUnsafeCode)
         {
             PlayerSettings.allowUnsafeCode = true;
             Debug.Log("[Janitor] Enabled 'Allow Unsafe Code' in Player Settings.");
         }
 
-        // 2. Delete the specific folders causing CS0592, CS8773, and CS0122
         string[] brokenPaths = {
             "Assets/MineMogul/Game/Scripts/UnityEngine.UnityConsentModule",
             "Assets/MineMogul/Game/Scripts/System.Runtime.CompilerServices.Unsafe",
-            // Also clean the source folder so they don't come back
+            "Assets/MineMogul/Game/Scripts/System.IO.Hashing",
+            "Assets/MineMogul/Game/Scripts/System.Memory",
+            "Assets/MineMogul/Game/Scripts/System.Buffers",
+            "Assets/MineMogul/Game/Scripts/System.Numerics.Vectors",
             "AssetRipperOutput/ExportedProject/Assets/Scripts/UnityEngine.UnityConsentModule",
-            "AssetRipperOutput/ExportedProject/Assets/Scripts/System.Runtime.CompilerServices.Unsafe"
+            "AssetRipperOutput/ExportedProject/Assets/Scripts/System.Runtime.CompilerServices.Unsafe",
+            "AssetRipperOutput/ExportedProject/Assets/Scripts/System.IO.Hashing"
         };
 
         bool changesMade = false;
         foreach (string path in brokenPaths)
         {
-            // Handle valid Unity Assets paths
             if (path.StartsWith("Assets"))
             {
-                if (AssetDatabase.IsValidFolder(path))
+                if (AssetDatabase.IsValidFolder(path) || File.Exists(path))
                 {
                     AssetDatabase.DeleteAsset(path);
                     Debug.Log($"[Janitor] Deleted conflict: {path}");
                     changesMade = true;
                 }
             }
-            // Handle external paths (AssetRipperOutput)
             else
             {
                 string fullPath = Path.Combine(Directory.GetParent(Application.dataPath).FullName, path);
@@ -88,7 +86,6 @@ public static class RenderPipelineJanitor
 
         if (changesMade) AssetDatabase.Refresh();
     }
-    // ----------------------------------------
 
     private static void FixProjectSettings()
     {
@@ -112,21 +109,12 @@ public static class RenderPipelineJanitor
         var components = esObj.GetComponents<Component>();
         foreach (var c in components)
         {
-            if (c == null)
-            {
-                GameObject.DestroyImmediate(c);
-            }
+            if (c == null) GameObject.DestroyImmediate(c);
         }
 
         if (esObj.GetComponent<UnityEngine.EventSystems.BaseInputModule>() == null)
         {
             esObj.AddComponent<UnityEngine.EventSystems.StandaloneInputModule>();
-        }
-
-        var raycasters = UnityEngine.Object.FindObjectsByType<UnityEngine.UI.GraphicRaycaster>(FindObjectsSortMode.None);
-        foreach (var ray in raycasters)
-        {
-            if (!ray.enabled) ray.enabled = true;
         }
     }
 
