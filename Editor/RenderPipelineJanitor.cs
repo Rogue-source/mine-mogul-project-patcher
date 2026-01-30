@@ -27,6 +27,7 @@ public static class RenderPipelineJanitor
 
     private static void AutomateSetup()
     {
+		ForceImportTMP();
         CleanupDrip();   
         MoveDLLs();      
         CleanManifest(); 
@@ -39,6 +40,15 @@ public static class RenderPipelineJanitor
         if (EditorApplication.isUpdating) return;
         AssetDatabase.Refresh();
     }
+	
+	private static void ForceImportTMP()
+{
+    if (!Directory.Exists("Assets/TextMesh Pro/Resources"))
+    {
+        Debug.Log("Janitor: TMP Essentials not found. Importing now...");
+        AssetDatabase.ImportPackage(EditorApplication.applicationContentsPath + "/Resources/Package Manager/Editor/com.unity.textmeshpro/Package Resources/TMP Essential Resources.unitypackage", false);
+    }
+}
 
     private static void FixProjectSettings()
     {
@@ -126,7 +136,9 @@ public static class RenderPipelineJanitor
             "Assets/MineMogul/Game/Scripts/UnityUIExtensions",
             "Assets/MineMogul/Game/Plugins/Assembly-CSharp-firstpass/DG",
             "Assets/MineMogul/Game/ComputeShader/Lut3DBaker.asset",
-            "Assets/MineMogul/Game/ComputeShader/Lut3DBaker.compute"
+            "Assets/MineMogul/Game/ComputeShader/Lut3DBaker.compute",
+            "Assets/MineMogul/Game/Scripts/Unity.Animation.Rigging",
+            "Assets/MineMogul/Game/Scripts/Unity.Animation.Rigging.DocCodeExamples"
         };
         
         foreach (string path in targets)
