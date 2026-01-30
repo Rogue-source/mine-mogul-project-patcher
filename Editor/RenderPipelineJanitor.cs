@@ -10,18 +10,16 @@ using System;
 [InitializeOnLoad]
 public static class RenderPipelineJanitor
 {
-    private const string Version = "2.0.0"; // Built-In Pipeline Version
+    private const string Version = "2.1.1";
 
     static RenderPipelineJanitor()
     {
-        // Delay ensures AssetDatabase is initialized before we start cleaning
         EditorApplication.delayCall += AutomateSetup;
     }
 
     [MenuItem("Tools/MineMogul Project Patcher/Repair Test")]
     public static void ManualTrigger()
     {
-        Debug.Log($"Janitor v{Version}: Manual Repair Triggered (Built-In Mode)...");
         AutomateSetup();
         AssetDatabase.Refresh();
     }
@@ -33,7 +31,7 @@ public static class RenderPipelineJanitor
         MoveDLLs();      
         FixProjectSettings();
         StopTMPPopup(); 	
-        //RepairBrokenEventSystem();
+        RepairBrokenEventSystem();
 
         if (EditorApplication.isUpdating) return;
         AssetDatabase.Refresh();
@@ -44,7 +42,6 @@ public static class RenderPipelineJanitor
         if (!PlayerSettings.allowUnsafeCode)
         {
             PlayerSettings.allowUnsafeCode = true;
-            Debug.Log("[Janitor] Enabled 'Allow Unsafe Code' in Player Settings.");
         }
 
         string[] brokenPaths = {
@@ -54,6 +51,7 @@ public static class RenderPipelineJanitor
             "Assets/MineMogul/Game/Scripts/System.Memory",
             "Assets/MineMogul/Game/Scripts/System.Buffers",
             "Assets/MineMogul/Game/Scripts/SSCC.Runtime",
+            "Assets/MineMogul/Game/Scripts/Unity.Animation.Rigging.DocCodeExamples",
             "AssetRipperOutput/ExportedProject/Assets/Scripts/UnityEngine.UnityConsentModule",
             "AssetRipperOutput/ExportedProject/Assets/Scripts/System.Runtime.CompilerServices.Unsafe"
         };
@@ -66,7 +64,6 @@ public static class RenderPipelineJanitor
                 if (AssetDatabase.IsValidFolder(path) || File.Exists(path))
                 {
                     AssetDatabase.DeleteAsset(path);
-                    Debug.Log($"[Janitor] Deleted conflict: {path}");
                     changesMade = true;
                 }
             }
@@ -101,7 +98,6 @@ public static class RenderPipelineJanitor
         }
 
         GameObject esObj = es.gameObject;
-        
         var components = esObj.GetComponents<Component>();
         foreach (var c in components)
         {
@@ -111,7 +107,6 @@ public static class RenderPipelineJanitor
         if (esObj.GetComponent<UnityEngine.EventSystems.StandaloneInputModule>() == null)
         {
             esObj.AddComponent<UnityEngine.EventSystems.StandaloneInputModule>();
-            Debug.Log("[Janitor] Restored StandaloneInputModule to EventSystem.");
         }
     }
 
@@ -122,7 +117,10 @@ public static class RenderPipelineJanitor
             "Assets/MineMogul/Game/Scripts/Unity.TextMeshPro",
             "Assets/MineMogul/Game/Scripts/UnityEngine.UI",
             "Assets/MineMogul/Game/Plugins/Assembly-CSharp-firstpass/DG",
-            "Assets/MineMogul/Game/Scripts/Unity.Animation.Rigging"
+            "Assets/MineMogul/Game/ComputeShader/Lut3DBaker.asset",
+            "Assets/MineMogul/Game/ComputeShader/Lut3DBaker.compute",
+            "Assets/MineMogul/Game/Scripts/Unity.Animation.Rigging",
+            "Assets/MineMogul/Game/Shaders/PostProcessing/Resources/Lut3DBaker.compute"
         };
         
         foreach (string path in targets)
