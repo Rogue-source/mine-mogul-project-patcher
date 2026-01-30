@@ -166,7 +166,10 @@ public static class RenderPipelineJanitor
             "Assets/MineMogul/Game/ComputeShader/Lut3DBaker.asset",
             "Assets/MineMogul/Game/ComputeShader/Lut3DBaker.compute",
             "Assets/MineMogul/Game/Scripts/Unity.Animation.Rigging",
-            "Assets/MineMogul/Game/Scripts/Unity.Animation.Rigging.DocCodeExamples"
+            "Assets/MineMogul/Game/Scripts/Unity.Animation.Rigging.DocCodeExamples",	
+			"Assets/MineMogul/Game/Shaders/Hidden_SSCC.shader",
+			"Assets/MineMogul/Game/Resources/SSCC.asset",
+			"Assets/MineMogul/Game/Scripts/PostProcessing/Runtime/Effects/SSCC.cs"
         };
         
         foreach (string path in targets)
