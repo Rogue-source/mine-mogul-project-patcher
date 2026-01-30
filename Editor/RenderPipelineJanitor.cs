@@ -10,14 +10,14 @@ using System;
 [InitializeOnLoad]
 public static class RenderPipelineJanitor
 {
-    private const string Version = "2.7.0-EventFix";
+    private const string Version = "1.0.0";
 
     static RenderPipelineJanitor()
     {
         AutomateSetup();
     }
 
-    [MenuItem("Tools/MineMogul Project Patcher/Full Nuclear Repair")]
+    [MenuItem("Tools/MineMogul Project Patcher/Repair Test")]
     public static void ManualTrigger()
     {
         Debug.Log($"Janitor v{Version}: Manual Repair Triggered...");
@@ -58,6 +58,7 @@ public static class RenderPipelineJanitor
         }
 
         GameObject esObj = es.gameObject;
+        
         var components = esObj.GetComponents<Component>();
         foreach (var c in components)
         {
@@ -70,6 +71,12 @@ public static class RenderPipelineJanitor
         if (esObj.GetComponent<UnityEngine.EventSystems.BaseInputModule>() == null)
         {
             esObj.AddComponent<UnityEngine.EventSystems.StandaloneInputModule>();
+        }
+
+        var raycasters = UnityEngine.Object.FindObjectsByType<UnityEngine.UI.GraphicRaycaster>(FindObjectsSortMode.None);
+        foreach (var ray in raycasters)
+        {
+            if (!ray.enabled) ray.enabled = true;
         }
     }
 
@@ -132,9 +139,6 @@ public static class RenderPipelineJanitor
     }
 
     private static void StopTMPPopup() { if (!Directory.Exists("Assets/TextMesh Pro")) Directory.CreateDirectory("Assets/TextMesh Pro"); }
-    private static void MoveDLLs() {}
-    public static void CleanManifest() {}
-    private static void ResetRenderPipeline() { GraphicsSettings.defaultRenderPipeline = null; }
 
     private static void MoveDLLs()
     {
@@ -178,55 +182,6 @@ public static class RenderPipelineJanitor
         
         lines = lines.Where(l => !forbidden.Any(f => l.Contains(f))).ToList();
         File.WriteAllLines(manifestPath, lines);
-    }
-
-    private static void FixTextShaders()
-    {
-        Shader normalSDF = Shader.Find("TextMeshPro/Mobile/Distance Field");
-        Shader overlaySDF = Shader.Find("TextMeshPro/Distance Field Overlay");
-
-        string[] overlayMaterials = {
-            "Roboto-ExtraBold SDF Material",
-            "Roboto_Condensed-ExtraBold SDF Material",
-            "Roboto_Condensed-Regular SDF Material"
-        };
-
-        foreach (string guid in AssetDatabase.FindAssets("t:Material"))
-        {
-            Material mat = AssetDatabase.LoadAssetAtPath<Material>(AssetDatabase.GUIDToAssetPath(guid));
-            if (mat == null) continue;
-
-            if (overlayMaterials.Any(name => mat.name.Contains(name)))
-            {
-                if (overlaySDF != null && mat.shader != overlaySDF)
-                {
-                    mat.shader = overlaySDF;
-                    EditorUtility.SetDirty(mat);
-                }
-            }
-            else if (mat.shader == null || mat.shader.name.Contains("InternalErrorShader") || mat.name.Contains("SDF"))
-            {
-                if (normalSDF != null)
-                {
-                    mat.shader = normalSDF;
-                    EditorUtility.SetDirty(mat);
-                }
-            }
-        }
-    }
-
-    private static void EnsureUIFunctionality()
-    {
-        if (UnityEngine.Object.FindAnyObjectByType<UnityEngine.EventSystems.EventSystem>() == null)
-        {
-            new GameObject("EventSystem", typeof(UnityEngine.EventSystems.EventSystem), typeof(UnityEngine.EventSystems.StandaloneInputModule));
-        }
-
-        var raycasters = UnityEngine.Object.FindObjectsByType<UnityEngine.UI.GraphicRaycaster>(FindObjectsSortMode.None);
-        foreach (var ray in raycasters)
-        {
-            if (!ray.enabled) ray.enabled = true;
-        }
     }
 
     private static void ResetRenderPipeline()
