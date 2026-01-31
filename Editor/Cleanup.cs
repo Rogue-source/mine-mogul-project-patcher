@@ -85,7 +85,7 @@ public static class Cleanup
             "Assets/MineMogul/Game/Scripts/Unity.Jobs",
 
             // Specialized Plugins
-            "Assets/MineMogul/Game/Scripts/Unity.Al.Navigation",
+            "Assets/MineMogul/Game/Scripts/Unity.AI.Navigation",
             "Assets/MineMogul/Game/Scripts/Unity.Animation.Rigging",
             "Assets/MineMogul/Game/Scripts/Unity.Animation.Rigging.DocCodeExamples",
             "Assets/MineMogul/Game/Scripts/Unity.Recorder",

@@ -164,13 +164,7 @@ MonoBehaviour:
   - Scripts\PhotonVoice.PUN
   - AssetRipper
   _filesToExcludeFromCopy: []
-  _foldersToExcludeFromRead:
-  - Scripts\Unity.Burst.Mathematics
-  - Scripts\Unity.Jobs
-  - Scripts\Unity.Collections
-  - Scripts\Unity.Burst
-  - Assets/MineMogul/Game/Scripts/Unity.InputSystem.ForUI
-  - Assets/MineMogul/Game/Scripts/Unity.InputSystem
+  _foldersToExcludeFromRead: []
   _projectSettingFilesToCopy:
   - NavMeshAreas.asset
   - TagManager.asset
