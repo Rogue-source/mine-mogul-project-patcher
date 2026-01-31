@@ -26,6 +26,7 @@ public static class RenderPipelineJanitor
 
     private static void AutomateSetup()
     {
+		CleanManifest();
 		ImportTMP();
         CleanupDrip();   
         CleanupBrokenCode(); 
@@ -96,6 +97,31 @@ public static class RenderPipelineJanitor
         else
         {
             EditorApplication.ExecuteMenuItem("Window/TextMeshPro/Import TMP Essential Resources");
+        }
+    }
+	
+	public static void CleanManifest()
+    {
+        string manifestPath = Path.Combine(Directory.GetCurrentDirectory(), "Packages", "manifest.json");
+        if (!File.Exists(manifestPath)) return;
+
+        List<string> lines = File.ReadAllLines(manifestPath).ToList();
+        
+        string[] forbidden = { 
+            "com.unity.render-pipelines.universal", 
+            "com.unity.render-pipelines.core",
+            "com.unity.textmeshpro",
+            "com.unity.inputsystem" 
+        };
+        
+        int initialCount = lines.Count;
+        lines = lines.Where(l => !forbidden.Any(f => l.Contains(f))).ToList();
+
+        if (lines.Count != initialCount)
+        {
+            File.WriteAllLines(manifestPath, lines);
+            Debug.Log("Removed official InputSystem package to resolve DLL conflict.");
+            AssetDatabase.Refresh();
         }
     }
 	
