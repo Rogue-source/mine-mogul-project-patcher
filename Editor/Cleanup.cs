@@ -21,6 +21,7 @@ public static class Cleanup
 
     private static void RunCleanup()
     {
+		GitCleanup();
         CleanManifest();
         ImportTMPEssentials();
         DeleteDupedScripts();
@@ -28,6 +29,33 @@ public static class Cleanup
         if (EditorApplication.isUpdating) return;
         AssetDatabase.Refresh();
     }
+	
+	private static void GitCleanup()
+{
+    if (SessionState.GetBool("GitCleanupPerformed", false)) return;
+
+    string[] onceTargets = {
+        "Assets/Scenes",
+        "Assets/InputSystem_Actions.inputactions" 
+    };
+
+    bool deleted = false;
+    foreach (string path in onceTargets)
+    {
+        if (AssetDatabase.IsValidFolder(path) || File.Exists(path))
+        {
+            AssetDatabase.DeleteAsset(path);
+            deleted = true;
+        }
+    }
+
+    if (deleted)
+    {
+        Debug.Log("Cleaned Project");
+        SessionState.SetBool("GitCleanupPerformed", true);
+        AssetDatabase.Refresh();
+    }
+}
 
     private static void CleanManifest()
     {

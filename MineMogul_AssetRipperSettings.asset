@@ -164,7 +164,9 @@ MonoBehaviour:
   - Scripts\PhotonVoice.PUN
   - AssetRipper
   _filesToExcludeFromCopy: []
-  _foldersToExcludeFromRead: []
+  _foldersToExcludeFromRead:
+  - Scripts\Unity.Jobs
+  - Scripts\Unity.Burst
   _projectSettingFilesToCopy:
   - NavMeshAreas.asset
   - TagManager.asset
