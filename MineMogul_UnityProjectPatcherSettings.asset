@@ -18,19 +18,55 @@ MonoBehaviour:
   _pipelineType: 0
   _dllsToCopy:
   - key: 
-    sourceName: Assembly-CSharp.dll
-    outputPath: 
-    exclude: 0
-  - key: 
-    sourceName: Assembly-CSharp-firstpass.dll
-    outputPath: 
-    exclude: 0
-  - key: 
     sourceName: DemiLib.dll
     outputPath: 
     exclude: 0
   - key: 
+    sourceName: DOTween.dll
+    outputPath: 
+    exclude: 0
+  - key: 
+    sourceName: DOTweenPro.dll
+    outputPath: 
+    exclude: 0
+  - key: 
     sourceName: SSCC.Runtime.dll
+    outputPath: 
+    exclude: 0
+  - key: 
+    sourceName: System.IO.Hashing.dll
+    outputPath: 
+    exclude: 0
+  - key: 
+    sourceName: System.Runtime.CompilerServices.Unsafe.dll
+    outputPath: 
+    exclude: 0
+  - key: 
+    sourceName: Unity.AI.Navigation.dll
+    outputPath: 
+    exclude: 0
+  - key: 
+    sourceName: Unity.Animation.Rigging.dll
+    outputPath: 
+    exclude: 0
+  - key: 
+    sourceName: Unity.Animation.Rigging.DocCodeExamples.dll
+    outputPath: 
+    exclude: 0
+  - key: 
+    sourceName: Unity.Burst.dll
+    outputPath: 
+    exclude: 0
+  - key: 
+    sourceName: Unity.Burst.Unsafe.dll
+    outputPath: 
+    exclude: 0
+  - key: 
+    sourceName: Unity.Collections.dll
+    outputPath: 
+    exclude: 0
+  - key: 
+    sourceName: Unity.Collections.LowLevel.ILSupport.dll
     outputPath: 
     exclude: 0
   - key: 
@@ -38,7 +74,67 @@ MonoBehaviour:
     outputPath: 
     exclude: 0
   - key: 
-    sourceName: SSCC.Runtime.dll
+    sourceName: Unity.InputSystem.ForUI.dll
+    outputPath: 
+    exclude: 0
+  - key: 
+    sourceName: Unity.Mathematics
+    outputPath: 
+    exclude: 0
+  - key: 
+    sourceName: Unity.Multiplayer.Center.Common.dll
+    outputPath: 
+    exclude: 0
+  - key: 
+    sourceName: Unity.Postprocessing.Runtime.dll
+    outputPath: 
+    exclude: 0
+  - key: 
+    sourceName: Unity.Recorder.dll
+    outputPath: 
+    exclude: 0
+  - key: 
+    sourceName: Unity.Recorder.dll
+    outputPath: 
+    exclude: 0
+  - key: 
+    sourceName: Unity.Recorder.Base.dll
+    outputPath: 
+    exclude: 0
+  - key: 
+    sourceName: Unity.Timeline.dll
+    outputPath: 
+    exclude: 0
+  - key: 
+    sourceName: Unity.VisualScripting.Antlr3.Runtime.dll
+    outputPath: 
+    exclude: 0
+  - key: 
+    sourceName: Unity.VisualScripting.Core.dll
+    outputPath: 
+    exclude: 0
+  - key: 
+    sourceName: Unity.VisualScripting.DocCodeExamples.dll
+    outputPath: 
+    exclude: 0
+  - key: 
+    sourceName: Unity.VisualScripting.Flow.dll
+    outputPath: 
+    exclude: 0
+  - key: 
+    sourceName: Unity.VisualScripting.State.dll
+    outputPath: 
+    exclude: 0
+  - key: 
+    sourceName: UnityEngine.InsightsModule.dll
+    outputPath: 
+    exclude: 0
+  - key: 
+    sourceName: UnityEngine.UI.dll
+    outputPath: 
+    exclude: 0
+  - key: 
+    sourceName: UnityEngine.UnityConsentModule.dll
     outputPath: 
     exclude: 0
   - key: 
