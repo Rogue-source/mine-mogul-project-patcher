@@ -10,7 +10,7 @@ using System;
 [InitializeOnLoad]
 public static class RenderPipelineJanitor
 {
-    private const string Version = "2.2.0";
+    private const string Version = "2.3.0";
 
     static RenderPipelineJanitor()
     {
@@ -26,11 +26,11 @@ public static class RenderPipelineJanitor
 
     private static void AutomateSetup()
     {
+		ImportTMP();
         CleanupDrip();   
         CleanupBrokenCode(); 
         MoveDLLs();      
         FixProjectSettings();
-        StopTMPPopup(); 	
         RepairBrokenEventSystem();
 
         if (EditorApplication.isUpdating) return;
@@ -50,7 +50,7 @@ public static class RenderPipelineJanitor
             "Assets/MineMogul/Game/Scripts/System.IO.Hashing",
             "Assets/MineMogul/Game/Scripts/System.Memory",
             "Assets/MineMogul/Game/Scripts/System.Buffers",
-            "Assets/MineMogul/Game/Scripts/SSCC.Runtime",
+          //  "Assets/MineMogul/Game/Scripts/SSCC.Runtime",
             "Assets/MineMogul/Game/Scripts/Unity.Animation.Rigging.DocCodeExamples",
             "Assets/MineMogul/Game/Scripts/UnityUIExtensions",
             "AssetRipperOutput/ExportedProject/Assets/Scripts/UnityEngine.UnityConsentModule",
@@ -81,13 +81,37 @@ public static class RenderPipelineJanitor
 
         if (changesMade) AssetDatabase.Refresh();
     }
+	
+	private static void ImportTMP()
+    {
+        if (Directory.Exists("Assets/TextMesh Pro/Resources")) return;
 
+        string packagePath = "Packages/com.unity.textmeshpro/Package Resources/TMP Essential Resources.unitypackage";
+        
+        if (File.Exists(packagePath))
+        {
+            AssetDatabase.ImportPackage(packagePath, false);
+            Debug.Log("Imported TMP Essential Resources.");
+        }
+        else
+        {
+            EditorApplication.ExecuteMenuItem("Window/TextMeshPro/Import TMP Essential Resources");
+        }
+    }
+	
     private static void FixProjectSettings()
     {
         PlayerSettings.graphicsJobs = false;
         PlayerSettings.SetUseDefaultGraphicsAPIs(BuildTarget.StandaloneWindows64, false);
         GraphicsDeviceType[] apis = { GraphicsDeviceType.Direct3D11, GraphicsDeviceType.Direct3D12 };
         PlayerSettings.SetGraphicsAPIs(BuildTarget.StandaloneWindows64, apis);
+
+        PlayerSettings.colorSpace = ColorSpace.Linear;
+
+        RenderSettings.ambientMode = AmbientMode.Skybox;
+        RenderSettings.subtractiveShadowColor = new Color(0.2f, 0.2f, 0.2f);
+        
+        Lightmapping.giWorkflowMode = Lightmapping.GIWorkflowMode.OnDemand;
     }
 
     private static void RepairBrokenEventSystem()
@@ -135,8 +159,6 @@ public static class RenderPipelineJanitor
             }
         }
     }
-
-    private static void StopTMPPopup() { if (!Directory.Exists("Assets/TextMesh Pro")) Directory.CreateDirectory("Assets/TextMesh Pro"); }
 
     private static void MoveDLLs()
     {

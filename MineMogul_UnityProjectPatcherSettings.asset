@@ -34,7 +34,11 @@ MonoBehaviour:
     outputPath: 
     exclude: 0
   - key: 
-    sourceName: Unity.InputSystem
+    sourceName: Unity.InputSystem.dll
+    outputPath: 
+    exclude: 0
+  - key: 
+    sourceName: SSCC.Runtime.dll
     outputPath: 
     exclude: 0
   - key: 

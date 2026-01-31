@@ -128,7 +128,7 @@ MonoBehaviour:
   - Mesh
   - MonoBehaviour
   - OcclusionCullingData
-  - PhysicMaterial
+  - PhysicsMaterial
   - Plugins
   - Resources
   - Scenes
@@ -163,12 +163,10 @@ MonoBehaviour:
   - Scripts\PhotonVoice.API
   - Scripts\PhotonVoice.PUN
   - AssetRipper
-  - UnreadableAssets
   _filesToExcludeFromCopy: []
   _foldersToExcludeFromRead:
   - Scripts\Unity.Burst.Mathematics
   - Scripts\Unity.Jobs
-  - Scripts\Unity.InputSystem
   - Scripts\Unity.Collections
   - Scripts\Unity.Burst
   _projectSettingFilesToCopy:
