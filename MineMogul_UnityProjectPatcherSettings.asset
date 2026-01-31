@@ -34,6 +34,10 @@ MonoBehaviour:
     outputPath: 
     exclude: 0
   - key: 
+    sourceName: Unity.InputSystem
+    outputPath: 
+    exclude: 0
+  - key: 
     sourceName: UnityUIExtensions.dll
     outputPath: 
     exclude: 0
