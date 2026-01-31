@@ -19,131 +19,131 @@ MonoBehaviour:
   _dllsToCopy:
   - key: Plugins
     sourceName: DemiLib.dll
-    outputPath: 
+    outputPath: Assets/MineMogul/Game/Plugins
     exclude: 0
   - key: Plugins
     sourceName: DOTween.dll
-    outputPath: 
+    outputPath: Assets/MineMogul/Game/Plugins
     exclude: 0
   - key: Plugins
     sourceName: DOTweenPro.dll
-    outputPath: 
+    outputPath: Assets/MineMogul/Game/Plugins
     exclude: 0
   - key: Plugins
     sourceName: SSCC.Runtime.dll
-    outputPath: 
+    outputPath: Assets/MineMogul/Game/Plugins
     exclude: 0
   - key: Plugins
     sourceName: System.IO.Hashing.dll
-    outputPath: 
+    outputPath: Assets/MineMogul/Game/Plugins
     exclude: 0
   - key: Plugins
     sourceName: System.Runtime.CompilerServices.Unsafe.dll
-    outputPath: 
+    outputPath: Assets/MineMogul/Game/Plugins
     exclude: 0
   - key: Plugins
     sourceName: Unity.AI.Navigation.dll
-    outputPath: 
+    outputPath: Assets/MineMogul/Game/Plugins
     exclude: 0
   - key: Plugins
     sourceName: Unity.Animation.Rigging.dll
-    outputPath: 
+    outputPath: Assets/MineMogul/Game/Plugins
     exclude: 0
   - key: Plugins
     sourceName: Unity.Animation.Rigging.DocCodeExamples.dll
-    outputPath: 
+    outputPath: Assets/MineMogul/Game/Plugins
     exclude: 0
   - key: Plugins
     sourceName: Unity.Burst.dll
-    outputPath: 
+    outputPath: Assets/MineMogul/Game/Plugins
     exclude: 0
   - key: Plugins
     sourceName: Unity.Burst.Unsafe.dll
-    outputPath: 
+    outputPath: Assets/MineMogul/Game/Plugins
     exclude: 0
   - key: Plugins
     sourceName: Unity.Collections.dll
-    outputPath: 
+    outputPath: Assets/MineMogul/Game/Plugins
     exclude: 0
   - key: Plugins
     sourceName: Unity.Collections.LowLevel.ILSupport.dll
-    outputPath: 
+    outputPath: Assets/MineMogul/Game/Plugins
     exclude: 0
   - key: Plugins
     sourceName: Unity.InputSystem.dll
-    outputPath: 
+    outputPath: Assets/MineMogul/Game/Plugins
     exclude: 0
   - key: Plugins
     sourceName: Unity.InputSystem.ForUI.dll
-    outputPath: 
+    outputPath: Assets/MineMogul/Game/Plugins
     exclude: 0
   - key: Plugins
-    sourceName: Unity.Mathematics
-    outputPath: 
+    sourceName: Unity.Mathematics.dll
+    outputPath: Assets/MineMogul/Game/Plugins
     exclude: 0
   - key: Plugins
     sourceName: Unity.Multiplayer.Center.Common.dll
-    outputPath: 
+    outputPath: Assets/MineMogul/Game/Plugins
     exclude: 0
   - key: Plugins
     sourceName: Unity.Postprocessing.Runtime.dll
-    outputPath: 
+    outputPath: Assets/MineMogul/Game/Plugins
     exclude: 0
   - key: Plugins
     sourceName: Unity.Recorder.dll
-    outputPath: 
+    outputPath: Assets/MineMogul/Game/Plugins
     exclude: 0
   - key: Plugins
     sourceName: Unity.Recorder.Base.dll
-    outputPath: 
+    outputPath: Assets/MineMogul/Game/Plugins
     exclude: 0
   - key: Plugins
-    sourceName: Unity.TextMeshPro
-    outputPath: 
+    sourceName: Unity.TextMeshPro.dll
+    outputPath: Assets/MineMogul/Game/Plugins
     exclude: 0
   - key: Plugins
     sourceName: Unity.Timeline.dll
-    outputPath: 
+    outputPath: Assets/MineMogul/Game/Plugins
     exclude: 0
   - key: Plugins
     sourceName: Unity.VisualScripting.Antlr3.Runtime.dll
-    outputPath: 
+    outputPath: Assets/MineMogul/Game/Plugins
     exclude: 0
   - key: Plugins
     sourceName: Unity.VisualScripting.Core.dll
-    outputPath: 
+    outputPath: Assets/MineMogul/Game/Plugins
     exclude: 0
   - key: Plugins
     sourceName: Unity.VisualScripting.DocCodeExamples.dll
-    outputPath: 
+    outputPath: Assets/MineMogul/Game/Plugins
     exclude: 0
   - key: Plugins
     sourceName: Unity.VisualScripting.Flow.dll
-    outputPath: 
+    outputPath: Assets/MineMogul/Game/Plugins
     exclude: 0
   - key: Plugins
     sourceName: Unity.VisualScripting.State.dll
-    outputPath: 
+    outputPath: Assets/MineMogul/Game/Plugins
     exclude: 0
   - key: Plugins
     sourceName: UnityEngine.InsightsModule.dll
-    outputPath: 
+    outputPath: Assets/MineMogul/Game/Plugins
     exclude: 0
   - key: Plugins
     sourceName: UnityEngine.UI.dll
-    outputPath: 
+    outputPath: Assets/MineMogul/Game/Plugins
     exclude: 0
   - key: Plugins
     sourceName: UnityEngine.UnityConsentModule.dll
-    outputPath: 
+    outputPath: Assets/MineMogul/Game/Plugins
     exclude: 0
   - key: Plugins
     sourceName: UnityUIExtensions.dll
-    outputPath: 
+    outputPath: Assets/MineMogul/Game/Plugins
     exclude: 0
   - key: Plugins
     sourceName: UnityUIExtensions.examples.dll
-    outputPath: 
+    outputPath: Assets/MineMogul/Game/Plugins
     exclude: 0
   _scriptDllFoldersToCopy: []
   _ignoredDllPrefixes:
