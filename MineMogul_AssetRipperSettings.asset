@@ -169,6 +169,8 @@ MonoBehaviour:
   - Scripts\Unity.Jobs
   - Scripts\Unity.Collections
   - Scripts\Unity.Burst
+  - Assets/MineMogul/Game/Scripts/Unity.InputSystem.ForUI
+  - Assets/MineMogul/Game/Scripts/Unity.InputSystem
   _projectSettingFilesToCopy:
   - NavMeshAreas.asset
   - TagManager.asset

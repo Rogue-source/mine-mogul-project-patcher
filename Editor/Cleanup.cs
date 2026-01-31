@@ -63,22 +63,52 @@ public static class Cleanup
     private static void DeleteDupedScripts()
     {
         string[] pathsToDelete = {
+            // Core System & UI
             "Assets/MineMogul/Game/Scripts/Unity.InputSystem",
             "Assets/MineMogul/Game/Scripts/Unity.InputSystem.ForUI",
             "Assets/MineMogul/Game/Scripts/UnityEngine.InputSystem",
+            "Assets/MineMogul/Game/Scripts/UnityEngine.UI",
+            "Assets/MineMogul/Game/Scripts/Unity.TextMeshPro",
+            "Assets/MineMogul/Game/Scripts/UnityUIExtensions",
+            "Assets/MineMogul/Game/Scripts/UnityUIExtensions.examples",
+
+            // Post Processing & Rendering
+            "Assets/MineMogul/Game/Scripts/Unity.Postprocessing.Runtime",
+            "Assets/MineMogul/Game/Scripts/UnityEngine.Rendering.PostProcessing",
+            "Assets/MineMogul/Game/Scripts/PostProcessing",
+
+            // Mathematics & Performance
+            "Assets/MineMogul/Game/Scripts/Unity.Mathematics",
+            "Assets/MineMogul/Game/Scripts/Unity.Collections",
+            "Assets/MineMogul/Game/Scripts/Unity.Burst",
+            "Assets/MineMogul/Game/Scripts/Unity.Burst.Unsafe",
+            "Assets/MineMogul/Game/Scripts/Unity.Jobs",
+
+            // Specialized Plugins
+            "Assets/MineMogul/Game/Scripts/Unity.Al.Navigation",
+            "Assets/MineMogul/Game/Scripts/Unity.Animation.Rigging",
+            "Assets/MineMogul/Game/Scripts/Unity.Animation.Rigging.DocCodeExamples",
+            "Assets/MineMogul/Game/Scripts/Unity.Recorder",
+            "Assets/MineMogul/Game/Scripts/Unity.Recorder.Base",
+            "Assets/MineMogul/Game/Scripts/Unity.VisualScripting.Antlr3.Runtime",
+            "Assets/MineMogul/Game/Scripts/Unity.VisualScripting.Core",
+            "Assets/MineMogul/Game/Scripts/Unity.VisualScripting.DocCodeExamples",
+            "Assets/MineMogul/Game/Scripts/Unity.VisualScripting.Flow",
+            "Assets/MineMogul/Game/Scripts/Unity.VisualScripting.State",
+            
+            // DOTween & DLL Overlaps
+            "Assets/MineMogul/Game/Scripts/DemiLib",
             "Assets/MineMogul/Game/Scripts/DOTween",
             "Assets/MineMogul/Game/Scripts/DOTweenPro",
             "Assets/MineMogul/Game/Scripts/DG", 
             "Assets/Plugins/Assembly-CSharp-firstpass",
             "Assets/MineMogul/Plugins/Assembly-CSharp-firstpass",
-            "Assets/MineMogul/Game/Scripts/UnityUIExtensions",
+
+            // System Libraries
             "Assets/MineMogul/Game/Scripts/System.IO.Hashing",
             "Assets/MineMogul/Game/Scripts/System.Runtime.CompilerServices.Unsafe",
-            "Assets/MineMogul/Game/Scripts/UnityEngine.UI",
-            "Assets/MineMogul/Game/Scripts/Unity.TextMeshPro",
             "Assets/MineMogul/Game/Scripts/SSCC.Runtime",
-            "Assets/MineMogul/Game/Scripts/Unity.Postprocessing",
-            "Assets/MineMogul/Game/Scripts/UnityEngine.Rendering.PostProcessing",
+            "Assets/MineMogul/Game/Scripts/UnityEngine.UnityConsentModule",
             "Assets/TutorialInfo"
         };
 
