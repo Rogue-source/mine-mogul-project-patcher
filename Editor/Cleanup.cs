@@ -44,7 +44,11 @@ public static class Cleanup
             "com.unity.collections",
             "com.unity.jobs",
             "com.unity.animation.rigging",
-            "com.unity.visualscripting"
+            "com.unity.visualscripting",
+            "com.unity.postprocessing",
+            "com.unity.timeline",
+            "com.unity.ai.navigation",
+            "com.unity.recorder"
         };
         
         int initialCount = lines.Count;
@@ -53,7 +57,6 @@ public static class Cleanup
         if (lines.Count != initialCount)
         {
             File.WriteAllLines(manifestPath, lines);
-            return; 
         }
     }
 
@@ -74,6 +77,8 @@ public static class Cleanup
             "Assets/MineMogul/Game/Scripts/UnityEngine.UI",
             "Assets/MineMogul/Game/Scripts/Unity.TextMeshPro",
             "Assets/MineMogul/Game/Scripts/SSCC.Runtime",
+            "Assets/MineMogul/Game/Scripts/Unity.Postprocessing",
+            "Assets/MineMogul/Game/Scripts/UnityEngine.Rendering.PostProcessing",
             "Assets/TutorialInfo"
         };
 
