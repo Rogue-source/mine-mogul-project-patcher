@@ -35,7 +35,6 @@ public static class Cleanup
     if (SessionState.GetBool("GitCleanupPerformed", false)) return;
 
     string[] onceTargets = {
-        "Assets/Scenes",
         "Assets/InputSystem_Actions.inputactions" 
     };
 
