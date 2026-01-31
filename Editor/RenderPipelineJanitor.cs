@@ -10,7 +10,7 @@ using System;
 [InitializeOnLoad]
 public static class RenderPipelineJanitor
 {
-    private const string Version = "2.1.1";
+    private const string Version = "2.2.0";
 
     static RenderPipelineJanitor()
     {
@@ -52,6 +52,7 @@ public static class RenderPipelineJanitor
             "Assets/MineMogul/Game/Scripts/System.Buffers",
             "Assets/MineMogul/Game/Scripts/SSCC.Runtime",
             "Assets/MineMogul/Game/Scripts/Unity.Animation.Rigging.DocCodeExamples",
+            "Assets/MineMogul/Game/Scripts/UnityUIExtensions",
             "AssetRipperOutput/ExportedProject/Assets/Scripts/UnityEngine.UnityConsentModule",
             "AssetRipperOutput/ExportedProject/Assets/Scripts/System.Runtime.CompilerServices.Unsafe"
         };
@@ -69,7 +70,8 @@ public static class RenderPipelineJanitor
             }
             else
             {
-                string fullPath = Path.Combine(Directory.GetParent(Application.dataPath).FullName, path);
+                string root = Directory.GetParent(Application.dataPath).FullName;
+                string fullPath = Path.Combine(root, path);
                 if (Directory.Exists(fullPath)) 
                 {
                     Directory.Delete(fullPath, true);
@@ -116,6 +118,8 @@ public static class RenderPipelineJanitor
             "Assets/TutorialInfo",
             "Assets/MineMogul/Game/Scripts/Unity.TextMeshPro",
             "Assets/MineMogul/Game/Scripts/UnityEngine.UI",
+            "Assets/MineMogul/Game/Scripts/DOTween",
+            "Assets/MineMogul/Game/Scripts/DOTweenPro",
             "Assets/MineMogul/Game/Plugins/Assembly-CSharp-firstpass/DG",
             "Assets/MineMogul/Game/ComputeShader/Lut3DBaker.asset",
             "Assets/MineMogul/Game/ComputeShader/Lut3DBaker.compute",
