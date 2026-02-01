@@ -61,13 +61,16 @@ MonoBehaviour:
     sourceName: UnityUIExtensions.examples.dll
     outputPath: ../Game/Plugins
     exclude: 0
+  - key: Plugins
+    sourceName: Unity.Postprocessing.Runtime.dll
+    outputPath: ../Game/Plugins
+    exclude: 0
   _scriptDllFoldersToCopy: []
   _ignoredDllPrefixes:
   - System.
   - UnityEngine.
   - Unity.Services.
   - com.unity.render-pipelines.core
-  - Unity.
   _exactPackagesFound: []
   _possiblePackagesFound: []
   _improbablePackagesFound: []
