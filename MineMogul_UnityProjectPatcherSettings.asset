@@ -184,8 +184,9 @@ MonoBehaviour:
   - name: com.unity.textmeshpro
     version: 3.0.9
     dependencies:
-    - name: com.unity.ugui
-      version: 1.0.0
+  - name: com.unity.textmeshpro
+    version: 3.0.9
+    dependencies:
     matchType: 0
   - name: com.unity.timeline
     version: 1.8.8
