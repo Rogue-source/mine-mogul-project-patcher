@@ -24,13 +24,14 @@ public static class Cleanup
 		GitCleanup();
         CleanManifest();
         DeleteDupedScripts();
+		CleanPackageCache();
 
         if (EditorApplication.isUpdating) return;
         AssetDatabase.Refresh();
     }
 	
 	private static void GitCleanup()
-{
+	{
     if (SessionState.GetBool("GitCleanupPerformed", false)) return;
 
     string[] onceTargets = {
@@ -86,6 +87,46 @@ public static class Cleanup
             File.WriteAllLines(manifestPath, lines);
         }
     }
+	
+
+    public static void CleanPackageCache()
+    {
+        string cachePath = Path.Combine(Directory.GetCurrentDirectory(), "Library", "PackageCache");
+
+        if (Directory.Exists(cachePath))
+        {
+            string[] targetPrefixes = { "com.unity.ugui", "com.unity.textmeshpro" };
+            bool deletedAnything = false;
+
+            try
+            {
+                string[] folders = Directory.GetDirectories(cachePath);
+
+                foreach (string folderPath in folders)
+                {
+                    string folderName = Path.GetFileName(folderPath);
+
+                    if (targetPrefixes.Any(prefix => folderName.StartsWith(prefix)))
+                    {
+                        Directory.Delete(folderPath, true);
+                        Debug.Log($"[Cleanup] Deleted offending cache folder: {folderName}");
+                        deletedAnything = true;
+                    }
+                }
+
+                if (deletedAnything)
+                {
+                    Debug.Log("[Cleanup] Restarting Unity to finalize package removal...");
+                    EditorApplication.OpenProject(Directory.GetCurrentDirectory());
+                }
+            }
+            catch (System.Exception e)
+            {
+                Debug.LogWarning($"[Cleanup] Error during cache deletion: {e.Message}. You may need to close Unity manually.");
+            }
+        }
+    }
+
 
     private static void DeleteDupedScripts()
     {
@@ -125,7 +166,8 @@ public static class Cleanup
             "Assets/MineMogul/Game/Scripts/Unity.VisualScripting.State",
 			"Assets/MineMogul/Game/Scripts/Unity.Collections.LowLevel",
 			"Assets/MineMogul/Game/Scripts/Unity.Timeline",
-            
+			"Assets/MineMogul/Game/Scripts/Unity.Collections.LowLevel.ILSupport",
+			    
             // DOTween & DLL Overlaps
             "Assets/MineMogul/Game/Scripts/DemiLib",
             "Assets/MineMogul/Game/Scripts/DOTween",
