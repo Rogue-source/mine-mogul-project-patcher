@@ -22,9 +22,7 @@ public static class Cleanup
     private static void RunCleanup()
     {
 		GitCleanup();
-        CleanManifest();
         DeleteDupedScripts();
-		CleanPackageCache();
 
         if (EditorApplication.isUpdating) return;
         AssetDatabase.Refresh();
@@ -55,78 +53,6 @@ public static class Cleanup
         AssetDatabase.Refresh();
     }
 }
-
-    private static void CleanManifest()
-    {
-        string manifestPath = Path.Combine(Directory.GetCurrentDirectory(), "Packages", "manifest.json");
-        if (!File.Exists(manifestPath)) return;
-
-        List<string> lines = File.ReadAllLines(manifestPath).ToList();
-        
-        string[] forbiddenPackages = { 
-            "com.unity.inputsystem",
-            "com.unity.textmeshpro",
-			"com.unity.ugui",
-            "com.unity.burst",
-            "com.unity.mathematics",
-            "com.unity.collections",
-            "com.unity.jobs",
-            "com.unity.animation.rigging",
-            "com.unity.visualscripting",
-            "com.unity.postprocessing",
-            "com.unity.timeline",
-            "com.unity.ai.navigation",
-            "com.unity.recorder"
-        };
-        
-        int initialCount = lines.Count;
-        lines = lines.Where(l => !forbiddenPackages.Any(f => l.Contains(f))).ToList();
-
-        if (lines.Count != initialCount)
-        {
-            File.WriteAllLines(manifestPath, lines);
-        }
-    }
-	
-
-    public static void CleanPackageCache()
-    {
-        string cachePath = Path.Combine(Directory.GetCurrentDirectory(), "Library", "PackageCache");
-
-        if (Directory.Exists(cachePath))
-        {
-            string[] targetPrefixes = { "com.unity.ugui", "com.unity.textmeshpro" };
-            bool deletedAnything = false;
-
-            try
-            {
-                string[] folders = Directory.GetDirectories(cachePath);
-
-                foreach (string folderPath in folders)
-                {
-                    string folderName = Path.GetFileName(folderPath);
-
-                    if (targetPrefixes.Any(prefix => folderName.StartsWith(prefix)))
-                    {
-                        Directory.Delete(folderPath, true);
-                        Debug.Log($"[Cleanup] Deleted offending cache folder: {folderName}");
-                        deletedAnything = true;
-                    }
-                }
-
-                if (deletedAnything)
-                {
-                    Debug.Log("[Cleanup] Restarting Unity to finalize package removal...");
-                    EditorApplication.OpenProject(Directory.GetCurrentDirectory());
-                }
-            }
-            catch (System.Exception e)
-            {
-                Debug.LogWarning($"[Cleanup] Error during cache deletion: {e.Message}. You may need to close Unity manually.");
-            }
-        }
-    }
-
 
     private static void DeleteDupedScripts()
     {
