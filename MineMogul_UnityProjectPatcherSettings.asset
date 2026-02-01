@@ -153,7 +153,59 @@ MonoBehaviour:
   - com.unity.render-pipelines.core
   - com.unity.render-pipelines.universal
   - com.unity.textmeshpro
-  _exactPackagesFound: []
+    _exactPackagesFound:
+  - name: com.unity.ai.navigation
+    version: 1.1.5
+    dependencies:
+    - name: com.unity.modules.ai
+      version: 1.0.0
+    matchType: 0
+  - name: com.unity.formats.fbx
+    version: 5.1.3
+    dependencies:
+    - name: com.autodesk.fbx
+      version: 5.1.1
+    - name: com.unity.timeline
+      version: 1.7.1
+    matchType: 0
+  - name: com.unity.inputsystem
+    version: 1.13.1
+    dependencies:
+    - name: com.unity.modules.uielements
+      version: 1.0.0
+    matchType: 0
+  - name: com.unity.postprocessing
+    version: 3.4.0
+    dependencies:
+    - name: com.unity.modules.physics
+      version: 1.0.0
+    matchType: 0
+  - name: com.unity.textmeshpro
+    version: 3.0.9
+    dependencies:
+    - name: com.unity.ugui
+      version: 1.0.0
+    matchType: 0
+  - name: com.unity.timeline
+    version: 1.8.8
+    dependencies:
+    - name: com.unity.modules.audio
+      version: 1.0.0
+    - name: com.unity.modules.director
+      version: 1.0.0
+    - name: com.unity.modules.animation
+      version: 1.0.0
+    - name: com.unity.modules.particlesystem
+      version: 1.0.0
+    matchType: 0
+  - name: com.unity.visualscripting
+    version: 1.9.5
+    dependencies:
+    - name: com.unity.ugui
+      version: 1.0.0
+    - name: com.unity.modules.jsonserialize
+      version: 1.0.0
+    matchType: 0
   _possiblePackagesFound: []
   _improbablePackagesFound: []
   _gitPackages: []
