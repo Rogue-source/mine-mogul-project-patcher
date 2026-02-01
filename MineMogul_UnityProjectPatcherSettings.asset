@@ -153,6 +153,7 @@ MonoBehaviour:
   - com.unity.render-pipelines.core
   - com.unity.render-pipelines.universal
   - com.unity.textmeshpro
+  - com.unity.ugui
     _exactPackagesFound:
   - name: com.unity.ai.navigation
     version: 1.1.5
