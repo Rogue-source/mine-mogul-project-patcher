@@ -65,6 +65,7 @@ public static class Cleanup
         string[] forbiddenPackages = { 
             "com.unity.inputsystem",
             "com.unity.textmeshpro",
+			"com.unity.ugui",
             "com.unity.burst",
             "com.unity.mathematics",
             "com.unity.collections",
@@ -95,6 +96,7 @@ public static class Cleanup
             "Assets/MineMogul/Game/Scripts/UnityEngine.InputSystem",
             "Assets/MineMogul/Game/Scripts/UnityEngine.UI",
             "Assets/MineMogul/Game/Scripts/Unity.TextMeshPro",
+			"Assets/MineMogul/Game/Scripts/Unity.ugui",
             "Assets/MineMogul/Game/Scripts/UnityUIExtensions",
             "Assets/MineMogul/Game/Scripts/UnityUIExtensions.examples",
 
