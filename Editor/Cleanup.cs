@@ -23,7 +23,6 @@ public static class Cleanup
     {
 		GitCleanup();
         CleanManifest();
-        ImportTMPEssentials();
         DeleteDupedScripts();
 
         if (EditorApplication.isUpdating) return;
@@ -150,15 +149,4 @@ public static class Cleanup
         }
     }
 
-    private static void ImportTMPEssentials()
-    {
-        if (Directory.Exists("Assets/TextMesh Pro/Resources")) return;
-
-        string packagePath = "Packages/com.unity.textmeshpro/Package Resources/TMP Essential Resources.unitypackage";
-        
-        if (File.Exists(packagePath))
-        {
-            AssetDatabase.ImportPackage(packagePath, false);
-        }
-    }
 }
