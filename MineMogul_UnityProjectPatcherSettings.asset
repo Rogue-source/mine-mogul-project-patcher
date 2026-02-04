@@ -30,10 +30,6 @@ MonoBehaviour:
     outputPath: ../Game/Plugins
     exclude: 0
   - key: Plugins
-    sourceName: SSCC.Runtime.dll
-    outputPath: ../Game/Plugins
-    exclude: 0
-  - key: Plugins
     sourceName: System.IO.Hashing.dll
     outputPath: ../Game/Plugins
     exclude: 0
@@ -43,10 +39,6 @@ MonoBehaviour:
     exclude: 0
   - key: Plugins
     sourceName: UnityEngine.InsightsModule.dll
-    outputPath: ../Game/Plugins
-    exclude: 0
-  - key: Plugins
-    sourceName: UnityEngine.UI.dll
     outputPath: ../Game/Plugins
     exclude: 0
   - key: Plugins
@@ -62,7 +54,7 @@ MonoBehaviour:
     outputPath: ../Game/Plugins
     exclude: 0
   - key: Plugins
-    sourceName: Unity.Postprocessing.Runtime.dll
+    sourceName: SSCC.Runtime.dll
     outputPath: ../Game/Plugins
     exclude: 0
   _scriptDllFoldersToCopy: []

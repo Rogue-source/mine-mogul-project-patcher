@@ -164,6 +164,7 @@ MonoBehaviour:
   - Scripts\PhotonVoice.PUN
   - AssetRipper
   - UnreadableAssets
+  - PostProcessing
   _filesToExcludeFromCopy: []
   _foldersToExcludeFromRead:
   - Scripts\Unity.Jobs
