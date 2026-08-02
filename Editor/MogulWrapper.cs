@@ -1,5 +1,5 @@
-﻿using Nomnom.UnityProjectPatcher.Editor;
-using Nomnom.UnityProjectPatcher.Editor.Steps;
+﻿using Rogue.UnityProjectPatcher.Editor;
+using Rogue.UnityProjectPatcher.Editor.Steps;
 
 namespace Rogue.MineMogulProjectPatcher.Editor {
     [UPPatcher("com.rogue.unity-minemogul-project-patcher")]

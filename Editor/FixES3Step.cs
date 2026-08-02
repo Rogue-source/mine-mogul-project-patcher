@@ -1,8 +1,8 @@
 ﻿using System.IO;
 using System.Linq;
 using Cysharp.Threading.Tasks;
-using Nomnom.UnityProjectPatcher.Editor;
-using Nomnom.UnityProjectPatcher.Editor.Steps;
+using Rogue.UnityProjectPatcher.Editor;
+using Rogue.UnityProjectPatcher.Editor.Steps;
 using UnityEditor;
 using UnityEngine;
 
