@@ -68,6 +68,7 @@ Create a new Unity project using 3D Built-In Render Pipeline.
 - Go to `Tools` > `Unity Project Patcher` > `Configs` > `UPPatcherUserSettings`
 - Change the Game Folder Path to your Mine Mogul directory
 - Go to `Tools` > `Unity Project Patcher` > `Open Window`
+- Press Enable BepInEx
 - Press Run Patcher
 - Unity will open and close a few times.
 - Wait until the process finishes completely.
