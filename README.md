@@ -45,6 +45,7 @@ This takes a build of Mine Mogule, extracts its assets/scripts/etc, and then gen
 Make sure you have the following before using the tool in any way:
 
 - [Git](https://git-scm.com/download/win)
+- [Unity 6000.3.5f2](https://unity.com/releases/editor/whats-new/6000.3.5f2)
 - [.NET 9.0](https://dotnet.microsoft.com/en-us/download/dotnet/9.0)
   - To run Asset Ripper
 
@@ -52,61 +53,24 @@ Make sure you have the following before using the tool in any way:
 
 ### Unity Project
 
-- Requires [Unity 2022.3.62f3](https://unity.com/releases/editor/whats-new/2022.3.62f3)
-- Unity built-in render pipeline
+Create a new Unity project using 3D Built-In Render Pipeline.
 
-Create a new Unity project with the above requirements before getting started.
-
-You will need to install three packages in sequence here:
+1. Open the Package Manager from `Window` > `Package Management` > `Package Manager`
+2. Click the `+` button in the top-left of the window
+3. Click `Add package from git URL`
+4. Install the following 3 projects:
 
 - Unity Project Patcher: `https://github.com/nomnomab/unity-project-patcher.git`
-- Unity Project Patcher BepInEx: `https://github.com/Kesomannen/unity-project-patcher-bepinex.git#update-mono-cecil`
-  - [Can be disabled](#disabling-bepinex-usage)
+- Unity Project Patcher BepInEx: `https://github.com/Kesomannen/unity-project-patcher-bepinex.git`
 - This project: `https://github.com/Rogue-source/mine-mogul-project-patcher.git`
 
-### Installing the Unity Project Patcher core
-
-1. Open the Package Manager from `Window > Package Manager`
-2. Click the '+' button in the top-left of the window
-3. Click 'Add package from git URL'
-4. Provide the URL of the this git repository: `https://github.com/nomnomab/unity-project-patcher.git`
-   - If you are using a specific version, you can append it to the end of the git URL, such as `#v1.2.3`
-5. Click the 'add' button
-
-```json
-"com.nomnom.unity-project-patcher": "https://github.com/nomnomab/unity-project-patcher.git"
-```
-
-- If you are using a specific version, you can append it to the end of the git URL, such as `#v1.2.3`
-
-### Installing this Game Wrapper
-
-The same steps as previously, just with `https://github.com/Rogue-source/mine-mogul-project-patcher.git`
-
-### Installing the BepInEx Wrapper
-
-Open the tool window `Tools > Unity Project Patcher > Open Window` and press the `Install BepInEx` button.
-
-Otherwise, follow the steps at https://github.com/nomnomab/unity-project-patcher-bepinex
-
-#### Disabling BepInEx Usage
-
-If you don't want to use plugins, then follow the steps at https://github.com/nomnomab/unity-project-patcher-bepinex#disabling-this-package
-
-## Usage
-
-The tool window can be opened via `Tools > Unity Project Patcher > Open Window`
-
-> [!IMPORTANT]  
-> This tool mostly supports patching an already patched project, although this can lead to broken assets.
-> So make sure you back up your project beforehand.
-
-Estimated patch durations:
-
-- Fresh patch: ~10 min
-- Already patched: TBD
-
-These can vary wildly depending on system speed and project size.
+### Patch and Configure BepInEx
+- Go to `Tools` > `Unity Project Patcher` > `Configs` > `UPPatcherUserSettings`
+- Change the Game Folder Path to your Mine Mogul directory
+- Go to `Tools` > `Unity Project Patcher` > `Open Window`
+- Press Run Patcher
+- Unity will open and close a few times.
+- Wait until the process finishes completely.
 
 ## Credits
 
