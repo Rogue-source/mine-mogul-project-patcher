@@ -60,7 +60,7 @@ Create a new Unity project using 3D Built-In Render Pipeline.
 3. Click `Add package from git URL`
 4. Install the following 3 projects:
 
-- Unity Project Patcher: `https://github.com/nomnomab/unity-project-patcher.git`
+- Unity Project Patcher: `https://github.com/Rogue-source/Unity-Project-Patcher.git`
 - Unity Project Patcher BepInEx: `https://github.com/Kesomannen/unity-project-patcher-bepinex.git`
 - This project: `https://github.com/Rogue-source/mine-mogul-project-patcher.git`
 
