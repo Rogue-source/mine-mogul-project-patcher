@@ -61,7 +61,7 @@ Create a new Unity project using 3D Built-In Render Pipeline.
 4. Install the following 3 projects:
 
 - Unity Project Patcher: `https://github.com/Rogue-source/Unity-Project-Patcher.git`
-- Unity Project Patcher BepInEx: `https://github.com/Kesomannen/unity-project-patcher-bepinex.git`
+- Unity Project Patcher BepInEx: `https://github.com/Rogue-source/unity-project-patcher-bepinex.git`
 - This project: `https://github.com/Rogue-source/mine-mogul-project-patcher.git`
 
 ### Patch and Configure BepInEx
