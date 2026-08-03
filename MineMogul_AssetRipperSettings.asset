@@ -165,10 +165,27 @@ MonoBehaviour:
   - AssetRipper
   - UnreadableAssets
   - PostProcessing
-  _filesToExcludeFromCopy: []
+  _filesToExcludeFromCopy:
+  - Scripts/Unity.Localization*
+  - Scripts/Unity.Collections*
+  - Scripts/Unity.TextMeshPro*
+  - Scripts/Unity.InputSystem*
+  - Scripts/Unity.Animation.Rigging*
+  - Scripts/Unity.Burst*
+  - Scripts/Unity.Jobs*
+  - Scripts/Unity.Mathematics*
+  - Scripts/Unity.VisualScripting*
+  - Scripts/Unity.AI.Navigation*
   _foldersToExcludeFromRead:
-  - Scripts\Unity.Jobs
-  - Scripts\Unity.Burst
+  - Scripts/Unity.Jobs
+  - Scripts/Unity.Burst
+  - Scripts/Unity.Localization
+  - Scripts/Unity.Collections
+  - Scripts/Unity.TextMeshPro
+  - Scripts/Unity.InputSystem
+  - Scripts/Unity.Animation.Rigging
+  - Scripts/Unity.VisualScripting
+  - Scripts/Unity.AI.Navigation
   _projectSettingFilesToCopy:
   - NavMeshAreas.asset
   - TagManager.asset
