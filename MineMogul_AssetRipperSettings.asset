@@ -206,6 +206,8 @@ MonoBehaviour:
   - ProjectSettings.asset
   - StreamingManager.asset
   - VFXManager.asset
+_requiredUnityPackages:
+  - com.unity.localization
   _configurationData:
     Import:
       scriptContentLevel: 2
