@@ -186,6 +186,10 @@ MonoBehaviour:
   - Scripts/Unity.Animation.Rigging
   - Scripts/Unity.VisualScripting
   - Scripts/Unity.AI.Navigation
+  - Scripts/DOTween
+  - Scripts/DG
+  - Scripts/DemiLib
+  - Scripts/System.IO.Hashing
   _projectSettingFilesToCopy:
   - NavMeshAreas.asset
   - TagManager.asset
