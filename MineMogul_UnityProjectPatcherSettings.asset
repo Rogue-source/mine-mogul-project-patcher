@@ -45,6 +45,10 @@ MonoBehaviour:
     sourceName: UnityEngine.UnityConsentModule.dll
     outputPath: ../Game/Plugins
     exclude: 0
+  - key: Plugins
+    sourceName: SSCC.Runtime.dll
+    outputPath: ../Game/Plugins
+    exclude: 0
   _scriptDllFoldersToCopy: []
   _requiredUnityPackages:
   - com.unity.localization
