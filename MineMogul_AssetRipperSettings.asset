@@ -186,6 +186,10 @@ MonoBehaviour:
   - Scripts/Unity.ResourceManager
   - Scripts/Unity.VisualScripting
   - Scripts/UnityEngine.UnityConsentModule
+  - Scripts/UnityUIExtensions.examples
+  - Scripts/UnityUIExtensions
+  - Scripts/Unity.Recorder
+  - Scripts/Unity.Recorder.Base
   _projectSettingFilesToCopy:
   - NavMeshAreas.asset
   - TagManager.asset
