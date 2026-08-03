@@ -45,10 +45,6 @@ MonoBehaviour:
     sourceName: UnityEngine.UnityConsentModule.dll
     outputPath: ../Game/Plugins
     exclude: 0
-  - key: Plugins
-    sourceName: UnityUIExtensions.dll
-    outputPath: ../Game/Plugins
-    exclude: 0
   _scriptDllFoldersToCopy: []
   _requiredUnityPackages:
   - com.unity.localization
