@@ -166,36 +166,26 @@ MonoBehaviour:
   - UnreadableAssets
   - PostProcessing
   _filesToExcludeFromCopy:
-  - Scripts/Unity.ResourceManager
-  - Scripts/Unity.Addressables
-  - Scripts/UnityEngine.UI
-  - Scripts/UnityEngine.UnityConsentModule
-  - Scripts/Newtonsoft.Json
-  - Scripts/Unity.Localization*
-  - Scripts/Unity.Collections*
-  - Scripts/Unity.TextMeshPro*
-  - Scripts/Unity.InputSystem*
-  - Scripts/Unity.Animation.Rigging*
-  - Scripts/Unity.Burst*
-  - Scripts/Unity.Jobs*
-  - Scripts/Unity.Mathematics*
-  - Scripts/Unity.VisualScripting*
-  - Scripts/Unity.AI.Navigation*
   _foldersToExcludeFromRead:
-  - Scripts/Unity.Jobs
-  - Scripts/Unity.Burst
-  - Scripts/Unity.Localization
-  - Scripts/Unity.Collections
-  - Scripts/Unity.TextMeshPro
-  - Scripts/Unity.InputSystem
-  - Scripts/Unity.Animation.Rigging
-  - Scripts/Unity.VisualScripting
-  - Scripts/Unity.AI.Navigation
-  - Scripts/DOTween
   - Scripts/DG
   - Scripts/DemiLib
+  - Scripts/DOTween
+  - Scripts/Newtonsoft.Json
   - Scripts/System.IO.Hashing
   - Scripts/System.Runtime.CompilerServices.Unsafe
+  - Scripts/Unity.Addressables
+  - Scripts/Unity.AI.Navigation
+  - Scripts/Unity.Animation.Rigging
+  - Scripts/Unity.Burst
+  - Scripts/Unity.Collections
+  - Scripts/Unity.InputSystem
+  - Scripts/Unity.Jobs
+  - Scripts/Unity.Localization
+  - Scripts/Unity.Mathematics
+  - Scripts/Unity.ResourceManager
+  - Scripts/Unity.TextMeshPro
+  - Scripts/Unity.VisualScripting
+  - Scripts/UnityEngine.UnityConsentModule
   _projectSettingFilesToCopy:
   - NavMeshAreas.asset
   - TagManager.asset
