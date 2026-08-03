@@ -166,31 +166,32 @@ MonoBehaviour:
   - UnreadableAssets
   - PostProcessing
   _filesToExcludeFromCopy: []
-  _foldersToExcludeFromRead:
+  _foldersToExcludeFromCopy:
   - Scripts/Unity.Postprocessing.Runtime
   - Scripts/UnityEngine.UI
   - Scripts/Unity.InputSystem
   - Scripts/Unity.TextMeshPro
+  - Scripts/Unity.Addressables
+  - Scripts/Unity.AI.Navigation
+  - Scripts/Unity.Animation.Rigging
+  - Scripts/Unity.Localization
+  - Scripts/Unity.ResourceManager
+  - Scripts/SSCC.Runtime
+  _foldersToExcludeFromRead:
   - Scripts/DemiLib
   - Scripts/DOTween
   - Scripts/Newtonsoft.Json
   - Scripts/System.IO.Hashing
   - Scripts/System.Runtime.CompilerServices.Unsafe
-  - Scripts/Unity.Addressables
-  - Scripts/Unity.AI.Navigation
-  - Scripts/Unity.Animation.Rigging
   - Scripts/Unity.Burst
   - Scripts/Unity.Collections
   - Scripts/Unity.Jobs
-  - Scripts/Unity.Localization
   - Scripts/Unity.Mathematics
-  - Scripts/Unity.ResourceManager
   - Scripts/Unity.VisualScripting
   - Scripts/UnityEngine.UnityConsentModule
   - Scripts/UnityUIExtensions.examples
   - Scripts/Unity.Recorder
   - Scripts/Unity.Recorder.Base
-  - Scripts/SSCC.Runtime
   _projectSettingFilesToCopy:
   - NavMeshAreas.asset
   - TagManager.asset
