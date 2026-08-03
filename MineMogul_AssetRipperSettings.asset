@@ -165,7 +165,7 @@ MonoBehaviour:
   - AssetRipper
   - UnreadableAssets
   - PostProcessing
-  _filesToExcludeFromCopy:
+  _filesToExcludeFromCopy[]
   _foldersToExcludeFromRead:
   - Scripts/DG
   - Scripts/DemiLib
