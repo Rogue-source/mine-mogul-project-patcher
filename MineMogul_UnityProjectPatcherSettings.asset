@@ -58,6 +58,8 @@ MonoBehaviour:
     outputPath: ../Game/Plugins
     exclude: 0
   _scriptDllFoldersToCopy: []
+_requiredUnityPackages:
+  - com.unity.localization
   _ignoredDllPrefixes:
   - System.
   - UnityEngine.
