@@ -168,6 +168,8 @@ MonoBehaviour:
   _filesToExcludeFromCopy: []
   _foldersToExcludeFromRead:
   - Scripts/UnityEngine.UI
+  - Scripts/Unity.InputSystem
+  - Scripts/Unity.TextMeshPro
   - Scripts/DemiLib
   - Scripts/DOTween
   - Scripts/Newtonsoft.Json
