@@ -56,6 +56,4 @@ MonoBehaviour:
   _exactPackagesFound: []
   _possiblePackagesFound: []
   _improbablePackagesFound: []
-  _gitPackages:
-  - https://github.com/Rogue-source/Unity-Project-Patcher.git
-  - https://github.com/Rogue-source/unity-project-patcher-bepinex.git
+  _gitPackages: []
