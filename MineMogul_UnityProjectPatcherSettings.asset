@@ -49,10 +49,13 @@ MonoBehaviour:
     sourceName: SSCC.Runtime.dll
     outputPath: ../Game/Plugins
     exclude: 0
+  - key: Plugins
+    sourceName: Unity.Postprocessing.Runtime.DLL
+    outputPath: ../Game/Plugins
+    exclude: 0
   _scriptDllFoldersToCopy: []
   _requiredUnityPackages:
   - com.unity.localization
-  - com.unity.postprocessing
   _ignoredDllPrefixes:
   - System.
   - UnityEngine.
