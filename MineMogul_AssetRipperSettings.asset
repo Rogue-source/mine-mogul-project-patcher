@@ -176,6 +176,7 @@ MonoBehaviour:
   - Scripts/Unity.Localization
   - Scripts/Unity.ResourceManager
   _foldersToExcludeFromRead:
+  - Scripts/UnityUIExtensions
   - Scripts/DemiLib
   - Scripts/DOTween
   - Scripts/Newtonsoft.Json
