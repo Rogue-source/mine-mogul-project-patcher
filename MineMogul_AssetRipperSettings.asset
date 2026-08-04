@@ -190,6 +190,8 @@ MonoBehaviour:
   - Scripts/UnityUIExtensions.examples
   - Scripts/Unity.Recorder
   - Scripts/Unity.Recorder.Base
+  - Scripts/Unity.Postprocessing.Runtime
+  - Scripts/SSCC.Runtime
   _projectSettingFilesToCopy:
   - NavMeshAreas.asset
   - TagManager.asset
