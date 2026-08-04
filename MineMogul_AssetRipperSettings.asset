@@ -167,7 +167,6 @@ MonoBehaviour:
   - PostProcessing
   _filesToExcludeFromCopy: []
   _foldersToExcludeFromCopy:
-  - Scripts/Unity.Postprocessing.Runtime
   - Scripts/UnityEngine.UI
   - Scripts/Unity.InputSystem
   - Scripts/Unity.TextMeshPro
@@ -176,7 +175,6 @@ MonoBehaviour:
   - Scripts/Unity.Animation.Rigging
   - Scripts/Unity.Localization
   - Scripts/Unity.ResourceManager
-  - Scripts/SSCC.Runtime
   _foldersToExcludeFromRead:
   - Scripts/DemiLib
   - Scripts/DOTween
