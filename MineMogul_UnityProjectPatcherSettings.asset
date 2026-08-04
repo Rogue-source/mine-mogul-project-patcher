@@ -46,11 +46,11 @@ MonoBehaviour:
     outputPath: ../Game/Plugins
     exclude: 0
   - key: Plugins
-    sourceName: Unity.Postprocessing.Runtime
+    sourceName: Unity.Postprocessing.Runtime.dll
     outputPath: ../Game/Plugins
     exclude: 0
   - key: Plugins
-    sourceName: SSCC.Runtime
+    sourceName: SSCC.Runtime.dll
     outputPath: ../Game/Plugins
     exclude: 0
   _scriptDllFoldersToCopy: []
