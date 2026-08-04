@@ -139,32 +139,6 @@ MonoBehaviour:
   - TerrainData
   - TerrainLayer
   - Texture2D
-  - 129
-  - LineRenderer
-  - MeshRenderer
-  - ParticleSystemRenderer
-  - PhysicsManager
-  - QualitySettings
-  - SkinnedMeshRenderer
-  - Settings
-  - NavMeshData
-  - Texture3D
-  - RenderTexture
-  - VideoClip
-  - Editor
-  - AudioMixerController
-  - Scripts\Assembly-CSharp
-  - Scripts\Photon3Unity3D
-  - Scripts\PhotonChat
-  - Scripts\PhotonRealtime
-  - Scripts\PhotonUnityNetworking
-  - Scripts\PhotonUnityNetworking.Utilities
-  - Scripts\PhotonVoice
-  - Scripts\PhotonVoice.API
-  - Scripts\PhotonVoice.PUN
-  - AssetRipper
-  - UnreadableAssets
-  - PostProcessing
   _filesToExcludeFromCopy: []
   _foldersToExcludeFromCopy:
   - Scripts/UnityEngine.UI
@@ -176,7 +150,6 @@ MonoBehaviour:
   - Scripts/Unity.Localization
   - Scripts/Unity.ResourceManager
   _foldersToExcludeFromRead:
-  - Scripts/UnityUIExtensions
   - Scripts/DemiLib
   - Scripts/DOTween
   - Scripts/Newtonsoft.Json
@@ -191,8 +164,6 @@ MonoBehaviour:
   - Scripts/UnityUIExtensions.examples
   - Scripts/Unity.Recorder
   - Scripts/Unity.Recorder.Base
-  - Scripts/Unity.Postprocessing.Runtime
-  - Scripts/SSCC.Runtime
   _projectSettingFilesToCopy:
   - NavMeshAreas.asset
   - TagManager.asset
