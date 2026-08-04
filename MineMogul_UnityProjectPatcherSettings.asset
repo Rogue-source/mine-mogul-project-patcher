@@ -48,6 +48,7 @@ MonoBehaviour:
   _scriptDllFoldersToCopy: []
   _requiredUnityPackages:
   - com.unity.localization
+  - com.unity.postprocessing
   _ignoredDllPrefixes:
   - System.
   - UnityEngine.
