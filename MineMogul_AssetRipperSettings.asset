@@ -175,6 +175,7 @@ MonoBehaviour:
   - Scripts/Unity.Animation.Rigging
   - Scripts/Unity.Localization
   - Scripts/Unity.ResourceManager
+  - Scripts/Unity.Postprocessing.Runtime
   _foldersToExcludeFromRead:
   - Scripts/DemiLib
   - Scripts/DOTween
